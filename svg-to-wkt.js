@@ -9,13 +9,7 @@
 (function() {
 
   var SVGtoWKT = {};
-  var root = this;
 
-  // Alias the original jQuery variable.
-  var $ = root.$;
-
-  // If we're in Node.js, import jQuery.
-  if (typeof $ == 'undefined') $ = require('jquery');
 
   // Expose AMD / RequireJS module.
   if (typeof define !== 'undefined' && define.amd) {
@@ -24,15 +18,13 @@
     });
   }
 
-  // Export Node.js module.
-  else if (typeof module !== 'undefined' && module.exports) {
-    module.exports = SVGtoWKT;
-  }
-
   // If we're in the browser, add `SVGtoWKT` as a global.
-  else root.SVGtoWKT = SVGtoWKT;
+  else this.SVGtoWKT = SVGtoWKT;
 
 
+  // SVG => WKT.
+  // @param   {String} svg
+  // @return  {String} wkt
   SVGtoWKT.convert = function(svg) {
 
     var wkt = 'GEOMETRYCOLLECTION(';
@@ -41,13 +33,49 @@
     // Parse the raw XML.
     var xml = $($.parseXML(svg));
 
-    // POLYGON
-    xml.find('polygon').each(function(p) {
-      // TODO|dev
-      console.log(p);
+    // LINE
+    xml.find('line').each(function(i, line) {
+      els.push(__line(
+        $(line).attr('x1'),
+        $(line).attr('y1'),
+        $(line).attr('x2'),
+        $(line).attr('y2')
+      ));
     });
 
-    return wkt + ')';
+    // POLYGON
+    xml.find('polygon').each(function(i, poly) {
+      els.push(__polygon($(poly).attr('points')));
+    });
+
+    return wkt + els.join(',') + ')';
+
+  };
+
+  // Construct a WKT line from SVG start/end point coordinates.
+  // @param   {Number} x1
+  // @param   {Number} y1
+  // @param   {Number} x2
+  // @param   {Number} y2
+  // @return  {String} wkt
+  var __line = function(x1, y1, x2, y2) {
+    return 'LINESTRING('+x1+' '+y1+','+x2+' '+y2+')';
+  };
+
+  // Construct a WKT polygon from SVG `points` attribute value.
+  // @param   {String} points
+  // @return  {String} wkt
+  var __polygon = function(points) {
+
+    var wkt = 'POLYGON((';
+    var pts = [];
+
+    // "1,2 3,4 " => "1 2,3 4"
+    _.each(points.trim().split(' '), function(pt) {
+      pts.push(pt.replace(',', ' '));
+    });
+
+    return wkt + pts.join() + '))';
 
   };
 

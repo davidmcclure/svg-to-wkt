@@ -123,13 +123,12 @@
   // Construct a WKT polygon from SVG rectangle origin and dimensions.
   // @param   {Number} x
   // @param   {Number} y
-  // @param   {String} width
-  // @param   {String} height
+  // @param   {Number} width
+  // @param   {Number} height
   // @param   {Number} rx
   // @param   {Number} ry
   // @return  {String} wkt
   var __rect = function(x, y, width, height, rx, ry) {
-    console.log(x, y, width, height, rx, ry);
 
     var wkt = 'POLYGON((';
     var pts = [];

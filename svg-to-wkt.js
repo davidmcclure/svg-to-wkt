@@ -56,12 +56,12 @@
     // RECT
     xml.find('rect').each(function(i, rect) {
       els.push(__rect(
-        parseInt($(rect).attr('x'), 10),
-        parseInt($(rect).attr('y'), 10),
-        parseInt($(rect).attr('width'), 10),
-        parseInt($(rect).attr('height'), 10),
-        parseInt($(rect).attr('rx'), 10),
-        parseInt($(rect).attr('ry'), 10)
+        parseInt($(rect).attr('x'),       10),
+        parseInt($(rect).attr('y'),       10),
+        parseInt($(rect).attr('width'),   10),
+        parseInt($(rect).attr('height'),  10),
+        parseInt($(rect).attr('rx'),      10),
+        parseInt($(rect).attr('ry'),      10)
       ));
     });
 

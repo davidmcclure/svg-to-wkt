@@ -1,0 +1,8 @@
+{
+    "name": "svg-to-wkt"
+  , "version": "0.0.1"
+  , "private": false
+  , "devDependencies": {
+      "jquery": ">= 1.8.3"
+  }
+}

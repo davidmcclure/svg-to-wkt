@@ -36,21 +36,39 @@
     // LINE
     xml.find('line').each(function(i, line) {
       els.push(__line(
-        $(line).attr('x1'),
-        $(line).attr('y1'),
-        $(line).attr('x2'),
-        $(line).attr('y2')
+        parseInt($(line).attr('x1'), 10),
+        parseInt($(line).attr('y1'), 10),
+        parseInt($(line).attr('x2'), 10),
+        parseInt($(line).attr('y2'), 10)
       ));
     });
 
+    // POLYLINE
+    xml.find('polyline').each(function(i, polyline) {
+      els.push(__polyline($(polyline).attr('points')));
+    });
+
     // POLYGON
-    xml.find('polygon').each(function(i, poly) {
-      els.push(__polygon($(poly).attr('points')));
+    xml.find('polygon').each(function(i, polygon) {
+      els.push(__polygon($(polygon).attr('points')));
+    });
+
+    // RECT
+    xml.find('rect').each(function(i, rect) {
+      els.push(__rect(
+        parseInt($(rect).attr('x'), 10),
+        parseInt($(rect).attr('y'), 10),
+        parseInt($(rect).attr('width'), 10),
+        parseInt($(rect).attr('height'), 10),
+        parseInt($(rect).attr('rx'), 10),
+        parseInt($(rect).attr('ry'), 10)
+      ));
     });
 
     return wkt + els.join(',') + ')';
 
   };
+
 
   // Construct a WKT line from SVG start/end point coordinates.
   // @param   {Number} x1
@@ -61,6 +79,25 @@
   var __line = function(x1, y1, x2, y2) {
     return 'LINESTRING('+x1+' '+y1+','+x2+' '+y2+')';
   };
+
+
+  // Construct a WKT linestrimg from SVG `points` attribute value.
+  // @param   {String} points
+  // @return  {String} wkt
+  var __polyline = function(points) {
+
+    var wkt = 'LINESTRING(';
+    var pts = [];
+
+    // "1,2 3,4 " => "1 2,3 4"
+    _.each(points.trim().split(' '), function(pt) {
+      pts.push(pt.replace(',', ' '));
+    });
+
+    return wkt + pts.join() + ')';
+
+  };
+
 
   // Construct a WKT polygon from SVG `points` attribute value.
   // @param   {String} points
@@ -75,9 +112,52 @@
       pts.push(pt.replace(',', ' '));
     });
 
+    // Close.
+    pts.push(pts[0]);
+
     return wkt + pts.join() + '))';
 
   };
+
+
+  // Construct a WKT polygon from SVG rectangle origin and dimensions.
+  // @param   {Number} x
+  // @param   {Number} y
+  // @param   {String} width
+  // @param   {String} height
+  // @param   {Number} rx
+  // @param   {Number} ry
+  // @return  {String} wkt
+  var __rect = function(x, y, width, height, rx, ry) {
+    console.log(x, y, width, height, rx, ry);
+
+    var wkt = 'POLYGON((';
+    var pts = [];
+
+    // 0,0 origin by default.
+    if (_.isNaN(x)) x = 0;
+    if (_.isNaN(y)) y = 0;
+
+    // No corner rounding.
+    if (_.isNaN(rx) || _.isNaN(ry)) {
+      // Top left.
+      pts.push([x, y]);
+      // Top right.
+      pts.push([x+width, y]);
+      // Bottom right.
+      pts.push([x+width, y+height]);
+      // Bottom left.
+      pts.push([x, y+height]);
+      // Close.
+      pts.push([x, y]);
+    }
+
+    // TODO|dev: Corner rounding.
+
+    return wkt + pts.join() + '))';
+
+  };
+
 
 
 })();

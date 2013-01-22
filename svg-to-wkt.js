@@ -77,7 +77,7 @@
 
     // PATH
     xml.find('path').each(function(i, path) {
-      els.push(SVGtoWKT.path(path));
+      els.push(SVGtoWKT.path($(path).attr('d')));
     });
 
     return wkt + els.join(',') + ')';
@@ -177,9 +177,27 @@
   // @param   {Number} cx
   // @param   {Number} cy
   // @param   {Number} r
+  // @param   {Number} pts_per_unit
   // @return  {String} wkt
-  SVGtoWKT.circle = function(cx, cy, r) {
-    // TODO|dev
+  SVGtoWKT.circle = function(cx, cy, r, pts_per_unit) {
+    pts_per_unit = pts_per_unit || 1;
+
+    var wkt = 'POLYGON((';
+    var pts = [];
+
+    var circumference   = Math.PI*2*r;
+    var point_count     = Math.round(circumference*pts_per_unit);
+    var interval_angle  = 360/point_count;
+
+    _(point_count).times(function(i) {
+      var angle = (interval_angle*i) * (Math.PI/180);
+      var x = r * Math.cos(angle);
+      var y = r * Math.sin(angle);
+      pts.push(String(x)+' '+String(y));
+    });
+
+    return wkt + pts.join() + '))';
+
   };
 
 
@@ -189,8 +207,21 @@
   // @param   {Number} cy
   // @param   {Number} rx
   // @param   {Number} ry
+  // @param   {Number} pts_per_unit
   // @return  {String} wkt
-  SVGtoWKT.ellipse = function(cx, cy, rx, ry) {
+  SVGtoWKT.ellipse = function(cx, cy, rx, ry, pts_per_unit) {
+    pts_per_unit = pts_per_unit || 1;
+    // TODO|dev
+  };
+
+
+  // ----------------------------------------------------------------------
+  // Construct a WKT polygon from a SVG path string.
+  // @param   {String} d
+  // @param   {Number} pts_per_unit
+  // @return  {String} wkt
+  SVGtoWKT.path = function(d, pts_per_unit) {
+    pts_per_unit = pts_per_unit || 1;
     // TODO|dev
   };
 

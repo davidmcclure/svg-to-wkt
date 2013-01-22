@@ -26,7 +26,7 @@
 
     // LINE
     xml.find('line').each(function(i, line) {
-      els.push(__line(
+      els.push(SVGtoWKT.line(
         parseInt($(line).attr('x1'), 10),
         parseInt($(line).attr('y1'), 10),
         parseInt($(line).attr('x2'), 10),
@@ -36,17 +36,17 @@
 
     // POLYLINE
     xml.find('polyline').each(function(i, polyline) {
-      els.push(__polyline($(polyline).attr('points')));
+      els.push(SVGtoWKT.polyline($(polyline).attr('points')));
     });
 
     // POLYGON
     xml.find('polygon').each(function(i, polygon) {
-      els.push(__polygon($(polygon).attr('points')));
+      els.push(SVGtoWKT.polygon($(polygon).attr('points')));
     });
 
     // RECT
     xml.find('rect').each(function(i, rect) {
-      els.push(__rect(
+      els.push(SVGtoWKT.rect(
         parseInt($(rect).attr('x'),       10),
         parseInt($(rect).attr('y'),       10),
         parseInt($(rect).attr('width'),   10),
@@ -56,9 +56,28 @@
       ));
     });
 
+    // CIRCLE
+    xml.find('circle').each(function(i, circle) {
+      els.push(SVGtoWKT.circle(
+        parseInt($(circle).attr('cx'),  10),
+        parseInt($(circle).attr('cy'),  10),
+        parseInt($(circle).attr('r'),   10)
+      ));
+    });
+
+    // ELLIPSE
+    xml.find('ellipse').each(function(i, circle) {
+      els.push(SVGtoWKT.ellipse(
+        parseInt($(circle).attr('cx'),  10),
+        parseInt($(circle).attr('cy'),  10),
+        parseInt($(circle).attr('rx'),  10),
+        parseInt($(circle).attr('ry'),  10)
+      ));
+    });
+
     // PATH
     xml.find('path').each(function(i, path) {
-      els.push(__path(path));
+      els.push(SVGtoWKT.path(path));
     });
 
     return wkt + els.join(',') + ')';
@@ -150,6 +169,29 @@
 
     return wkt + pts.join() + '))';
 
+  };
+
+
+  // ----------------------------------------------------------------------
+  // Construct a WKT polygon for a circle from origin and radius.
+  // @param   {Number} cx
+  // @param   {Number} cy
+  // @param   {Number} r
+  // @return  {String} wkt
+  SVGtoWKT.circle = function(cx, cy, r) {
+    // TODO|dev
+  };
+
+
+  // ----------------------------------------------------------------------
+  // Construct a WKT polygon for an ellipse from origin and radii.
+  // @param   {Number} cx
+  // @param   {Number} cy
+  // @param   {Number} rx
+  // @param   {Number} ry
+  // @return  {String} wkt
+  SVGtoWKT.ellipse = function(cx, cy, rx, ry) {
+    // TODO|dev
   };
 
 

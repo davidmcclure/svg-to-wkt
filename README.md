@@ -37,7 +37,7 @@ SVG-to-WKT uses jQuery (for XML parsing) and Underscore (for sanity).
 ---
 
 <a name="convert" />
-### convert(svg)
+### SVGtoWKT.convert(svg)
 
 Top-level routine that takes a raw SVG document and returns a WKT string.
 
@@ -55,3 +55,5 @@ SVGtoWKT.convert('<svg><polygon points="1,2 3,4 5,6" /></svg>');
 ## Credits
 
 The ```path``` method follows the approach described by Guilherme Mussi on his blog: "[Converting SVG paths to polygons](http://whaticode.com/2012/02/01/converting-svg-paths-to-polygons)."
+
+This document follows the layout used by Caolan McMahon (caolan) in projects like caolan/async.

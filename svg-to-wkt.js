@@ -250,7 +250,8 @@
 
 
   // ----------------------------------------------------------------------
-  // Construct a WKT polygon from a SVG path string.
+  // Construct a WKT polygon from a SVG path string. Approach from:
+  // http://whaticode.com/2012/02/01/converting-svg-paths-to-polygons/
   // @param   {String} d:       <path> `d` attribute value.
   // @param   {Number} density: Number of points generated per pixel.
   // @return  {String} wkt:     Generated WKT.

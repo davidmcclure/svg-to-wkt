@@ -36,4 +36,4 @@ SVG-to-WKT uses jQuery (for XML parsing) and Underscore (for sanity).
 
 ## Credits
 
-The implementation of the ```path``` follows the approach described by Guilherme Petterle Silveira Mussi on his blog: "[Converting SVG paths to polygons](http://whaticode.com/2012/02/01/converting-svg-paths-to-polygons)."
+The ```path``` method follows the approach described by Guilherme Mussi on his blog: "[Converting SVG paths to polygons](http://whaticode.com/2012/02/01/converting-svg-paths-to-polygons)."

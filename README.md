@@ -5,8 +5,9 @@ SVG-to-WKT converts [SVG](https://developer.mozilla.org/en-US/docs/SVG) (Scalabl
 ## Quick Example
 
 ```javascript
-SVGtoWKT.convert('<svg><path d=""></svg>');
->>> "GEOMETRYCOLLECTION()"
+SVGtoWKT.convert('<svg><polygon points="1,2 3,4 5,6" /></svg>');
+
+>>> "GEOMETRYCOLLECTION(POLYGON((1 2,3 4,5 6,1 2)))"
 ```
 
 ## In the Browser

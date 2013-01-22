@@ -6,27 +6,38 @@
 // http://dclure.org
 
 
-describe('circle', function() {
+describe('ellipse', function() {
 
   it('should construct a closed POLYGON WKT shape', function() {
 
-    // Create circle with radius of 1.2 and 1 point-per-pixel-of-length.
-    // The circumference of this circle is ~7.53, which rounds to 8,
-    // meaning that all of the points are cleanly positioned either on the
-    // axes or in the middle of the major quadrants, allowing us to easily
-    // check that the circle is being constructed properly.
-    var circle = SVGtoWKT.circle(0, 0, 1.2, 1).match(/\(\(([\s\S]+)\)\)/);
-    var points = circle[1].split(',');
+    // Create ellipse with a horizontal radius of 1 and a vertical radius
+    // of 1.6 and 1 point-per-pixel-of-length. The circumference of this
+    // ellipse is ~8.38, which rounds 8, meaning that all of the points
+    // are cleanly positioned either on the axes or in the middle of the
+    // major quadrants, allowing us to easily check that the ellipse is
+    // being constructed properly.
+    var el = SVGtoWKT.ellipse(0, 0, 1, 1.6, 1).match(/\(\(([\s\S]+)\)\)/);
+    var points = el[1].split(',');
 
     // Should have 9 points.
     expect(points.length).toEqual(9);
     // WKT polygon should be closed.
     expect(points[0]).toEqual(points[8]);
 
+    // Positive X-axis intercept.
+    var p0 = points[0].split(' ');
+    expect(parseFloat(p0[0], 10)).toEqual(1);
+    expect(parseFloat(p0[1], 10)).toEqual(0);
+
     // Quadrant 1 point.
     var p1 = points[1].split(' ');
     expect(p1[0]).toBeGreaterThan(0);
     expect(p1[1]).toBeGreaterThan(0);
+
+    // Positive Y-axis intercept.
+    var p2 = points[2].split(' ');
+    expect(parseFloat(p2[0], 10)).toEqual(0);
+    expect(parseFloat(p2[1], 10)).toEqual(1.6);
 
     // Quadrant 2 point.
     var p3 = points[3].split(' ');

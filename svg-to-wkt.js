@@ -9,8 +9,10 @@
 (function() {
 
 
-  var SVGtoWKT = {};
-  var SVGNS = 'http://www.w3.org/2000/svg';
+  var SVGtoWKT  = {};
+  var SVGNS     = 'http://www.w3.org/2000/svg';
+  var PRECISION = 3;
+  var DENSITY   = 1;
 
 
   // ----------------------------------------------------------------------
@@ -188,7 +190,8 @@
   // @public
   SVGtoWKT.circle = function(cx, cy, r, density) {
 
-    density = density || 1;
+    density = density || DENSITY;
+
     var wkt = 'POLYGON((';
     var pts = [];
 
@@ -202,8 +205,8 @@
     // Genrate the circle.
     _(point_count).times(function(i) {
       var angle = (interval_angle * i) * (Math.PI / 180);
-      var x = cx + r * Math.cos(angle);
-      var y = cy + r * Math.sin(angle);
+      var x = __round(cx + r * Math.cos(angle));
+      var y = __round(cy + r * Math.sin(angle));
       pts.push(String(x)+' '+String(y));
     });
 
@@ -226,7 +229,8 @@
   // @public
   SVGtoWKT.ellipse = function(cx, cy, rx, ry, density) {
 
-    density = density || 1;
+    density = density || DENSITY;
+
     var wkt = 'POLYGON((';
     var pts = [];
 
@@ -242,10 +246,13 @@
     // Generate the ellipse.
     _(point_count).times(function(i) {
       var angle = (interval_angle * i) * (Math.PI / 180);
-      var x = cx + rx * Math.cos(angle);
-      var y = cy + ry * Math.sin(angle);
+      var x = __round(cx + rx * Math.cos(angle));
+      var y = __round(cy + ry * Math.sin(angle));
       pts.push(String(x)+' '+String(y));
     });
+
+    // Close.
+    pts.push(pts[0]);
 
     return wkt + pts.join() + '))';
 
@@ -261,7 +268,8 @@
   // @public
   SVGtoWKT.path = function(d, density) {
 
-    density = density || 1;
+    density = density || DENSITY;
+
     var wkt = 'POLYGON(';
     var parts = [];
 
@@ -284,7 +292,7 @@
       _(point_count).times(function(i) {
         var distance = (length * i) / point_count;
         var point = path.getPointAtLength(distance);
-        pts.push(String(point.x)+' '+String(point.y));
+        pts.push(String(__round(point.x))+' '+String(__round(point.y)));
       });
 
       parts.push(part + pts.join() + ')');
@@ -297,6 +305,24 @@
 
 
   // ----------------------------------------------------------------------
+  // Set the number of decimal places computed during point interpolation.
+  // @param {Number} precision: The number of decimal places.
+  // @public
+  SVGtoWKT.setPrecision = function(precision) {
+    PRECISION = precision;
+  };
+
+
+  // ----------------------------------------------------------------------
+  // Set the density coefficient used during point interpolation.
+  // @param {Number} density: Points per linear pixel.
+  // @public
+  SVGtoWKT.setDensity = function(density) {
+    DENSITY = density;
+  };
+
+
+  // ----------------------------------------------------------------------
   // Construct a SVG path element.
   // @param   {String} d:             <path> `d` attribute value.
   // @return  {SVGPathElement} path:  The new <path> element.
@@ -305,6 +331,17 @@
     var path = document.createElementNS(SVGNS, 'path');
     path.setAttributeNS(null, 'd', d);
     return path;
+  };
+
+
+  // ----------------------------------------------------------------------
+  // Round a number to a given number of decimal places.
+  // @param   {Number} val: The number to round.
+  // @return  {Number}:     The rounded value.
+  // @private
+  var __round = function(val) {
+    var root = Math.pow(10, PRECISION);
+    return Math.round(val * root) / root;
   };
 
 

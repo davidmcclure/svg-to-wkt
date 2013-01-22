@@ -2,18 +2,21 @@
 /* vim: set expandtab tabstop=2 shiftwidth=2 softtabstop=2 cc=76; */
 
 // SVG-to-WKT 0.0.1
-// http://dclure.org
 // (c) 2013 David McClure
+// http://dclure.org
 
 
 (function() {
+
+
+  var SVGtoWKT = {};
 
 
   // ----------------------------------------------------------------------
   // SVG => WKT.
   // @param   {String} svg
   // @return  {String} wkt
-  var convert = function(svg) {
+  SVGtoWKT.convert = function(svg) {
 
     var wkt = 'GEOMETRYCOLLECTION(';
     var els = [];
@@ -70,7 +73,7 @@
   // @param   {Number} x2
   // @param   {Number} y2
   // @return  {String} wkt
-  var __line = function(x1, y1, x2, y2) {
+  SVGtoWKT.line = function(x1, y1, x2, y2) {
     return 'LINESTRING('+x1+' '+y1+','+x2+' '+y2+')';
   };
 
@@ -79,7 +82,7 @@
   // Construct a WKT linestrimg from SVG `points` attribute value.
   // @param   {String} points
   // @return  {String} wkt
-  var __polyline = function(points) {
+  SVGtoWKT.polyline = function(points) {
 
     var wkt = 'LINESTRING(';
     var pts = [];
@@ -98,7 +101,7 @@
   // Construct a WKT polygon from SVG `points` attribute value.
   // @param   {String} points
   // @return  {String} wkt
-  var __polygon = function(points) {
+  SVGtoWKT.polygon = function(points) {
 
     var wkt = 'POLYGON((';
     var pts = [];
@@ -125,7 +128,7 @@
   // @param   {Number} rx
   // @param   {Number} ry
   // @return  {String} wkt
-  var __rect = function(x, y, width, height, rx, ry) {
+  SVGtoWKT.rect = function(x, y, width, height, rx, ry) {
 
     var wkt = 'POLYGON((';
     var pts = [];
@@ -155,15 +158,7 @@
   };
 
 
-  // Expose AMD / RequireJS module.
-  if (typeof define !== 'undefined' && define.amd) {
-    define('SVGtoWKT', ['jquery'], function() {
-      return SVGtoWKT;
-    });
-  }
-
-  // If we're in the browser, add `SVGtoWKT` as a global.
-  else this.SVGtoWKT = convert;
+  this.SVGtoWKT = SVGtoWKT;
 
 
 })();

@@ -14,8 +14,8 @@
 
   // ----------------------------------------------------------------------
   // SVG => WKT.
-  // @param   {String} svg
-  // @return  {String} wkt
+  // @param   {String} svg: The input SVG markup.
+  // @return  {String} wkt: The generated WKT.
   SVGtoWKT.convert = function(svg) {
 
     var wkt = 'GEOMETRYCOLLECTION(';
@@ -68,11 +68,11 @@
 
   // ----------------------------------------------------------------------
   // Construct a WKT line from SVG start/end point coordinates.
-  // @param   {Number} x1
-  // @param   {Number} y1
-  // @param   {Number} x2
-  // @param   {Number} y2
-  // @return  {String} wkt
+  // @param   {Number} x1:    Start X coordinate.
+  // @param   {Number} y1:    Start Y coordinate.
+  // @param   {Number} x2:    End X coordinate.
+  // @param   {Number} y2:    End Y coordinate.
+  // @return  {String} wkt:   The generated WKT.
   SVGtoWKT.line = function(x1, y1, x2, y2) {
     return 'LINESTRING('+x1+' '+y1+','+x2+' '+y2+')';
   };
@@ -80,8 +80,8 @@
 
   // ----------------------------------------------------------------------
   // Construct a WKT linestrimg from SVG `points` attribute value.
-  // @param   {String} points
-  // @return  {String} wkt
+  // @param   {String} points:  The `points` attribute value.
+  // @return  {String} wkt:     The generated WKT.
   SVGtoWKT.polyline = function(points) {
 
     var wkt = 'LINESTRING(';
@@ -99,8 +99,8 @@
 
   // ----------------------------------------------------------------------
   // Construct a WKT polygon from SVG `points` attribute value.
-  // @param   {String} points
-  // @return  {String} wkt
+  // @param   {String} points:  The `points` attribute value.
+  // @return  {String} wkt:     The generated WKT.
   SVGtoWKT.polygon = function(points) {
 
     var wkt = 'POLYGON((';
@@ -121,13 +121,13 @@
 
   // ----------------------------------------------------------------------
   // Construct a WKT polygon from SVG rectangle origin and dimensions.
-  // @param   {Number} x
-  // @param   {Number} y
-  // @param   {Number} width
-  // @param   {Number} height
-  // @param   {Number} rx
-  // @param   {Number} ry
-  // @return  {String} wkt
+  // @param   {Number} x:       Top left corner X coordinate.
+  // @param   {Number} y:       Top left corner Y coordinate.
+  // @param   {Number} width:   Width of the rectangle.
+  // @param   {Number} height:  Height of the rectangle.
+  // @param   {Number} rx:      Horizontal corner radius.
+  // @param   {Number} ry:      Vertical corner radius.
+  // @return  {String} wkt:     The generated WKT.
   SVGtoWKT.rect = function(x, y, width, height, rx, ry) {
 
     var wkt = 'POLYGON((';

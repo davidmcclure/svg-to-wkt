@@ -43,11 +43,11 @@ Top-level routine that takes a raw SVG document and returns a WKT string.
 
 __Arguments__
 
-* {String} svg - A valid SVG document.
+* {String} **svg** - A valid SVG document.
 
 __Returns__
 
-* {String} wkt - A WKT ```GEOMETRYCOLLECTION```.
+* {String} **wkt** - A WKT ```GEOMETRYCOLLECTION```.
 
 __Example__
 
@@ -65,14 +65,14 @@ Constructs a WKT ```LINESTRING``` element from two points.
 
 __Arguments__
 
-* {Number} x1 - The X coordinate of the start point.
-* {Number} y1 - The Y coordinate of the start point.
-* {Number} x2 - The X coordinate of the end point.
-* {Number} y2 - The Y coordinate of the end point.
+* {Number} **x1** - The X coordinate of the start point.
+* {Number} **y1** - The Y coordinate of the start point.
+* {Number} **x2** - The X coordinate of the end point.
+* {Number} **y2** - The Y coordinate of the end point.
 
 __Returns__
 
-* {String} wkt - A WKT ```LINESTRING```.
+* {String} **wkt** - A WKT ```LINESTRING```.
 
 __Example__
 
@@ -90,11 +90,11 @@ Constructs a WKT ```LINESTRING``` element from the value of the ```points``` att
 
 __Arguments__
 
-* {String} points - The value of the ```points``` attribute on a SVG ```polyline``` element.
+* {String} **points** - The value of the ```points``` attribute on a SVG ```polyline``` element.
 
 __Returns__
 
-* {String} wkt - A WKT ```LINESTRING```.
+* {String} **wkt** - A WKT ```LINESTRING```.
 
 __Example__
 
@@ -112,16 +112,16 @@ Constructs a WKT ```POLYGON``` element from the coordinates of the top-left corn
 
 __Arguments__
 
-* {Number} x - The X coordinate of the top-left corner.
-* {Number} y - The Y coordinate of the top-left corner.
-* {Number} width - The width of the rectangle.
-* {Number} height - The height of the rectangle.
-* {Number} rx (**TODO**) - The horizontal border radius.
-* {Number} ry (**TODO**) - The vertical border radius.
+* {Number} **x** - The X coordinate of the top-left corner.
+* {Number} **y** - The Y coordinate of the top-left corner.
+* {Number} **width** - The width of the rectangle.
+* {Number} **height** - The height of the rectangle.
+* {Number} **rx** (TODO) - The horizontal border radius.
+* {Number} **ry** (TODO) - The vertical border radius.
 
 __Returns__
 
-* {String} wkt - A WKT ```POLYGON```.
+* {String} **wkt** - A WKT ```POLYGON```.
 
 __Example__
 
@@ -139,14 +139,14 @@ Constructs a WKT ```POLYGON``` element from a circle center point and radius.
 
 __Arguments__
 
-* {Number} cx - The center X coordinate.
-* {Number} cy - The center Y coordinate.
-* {Number} r - The radius.
-* {Number} density (optional, defaults to 1) - The number of polygon points that should be rendered per linear pixel. Higher density results in more points, higher resolution.
+* {Number} **cx** - The center X coordinate.
+* {Number} **cy** - The center Y coordinate.
+* {Number} **r** - The radius.
+* {Number} **density** (optional, defaults to 1) - The number of polygon points that should be rendered per linear pixel. Higher density results in more points, higher resolution.
 
 __Returns__
 
-* {String} wkt - A WKT ```POLYGON```.
+* {String} **wkt** - A WKT ```POLYGON```.
 
 __Example__
 

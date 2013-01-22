@@ -8,24 +8,12 @@
 
 (function() {
 
-  var SVGtoWKT = {};
 
-
-  // Expose AMD / RequireJS module.
-  if (typeof define !== 'undefined' && define.amd) {
-    define('SVGtoWKT', ['jquery'], function() {
-      return SVGtoWKT;
-    });
-  }
-
-  // If we're in the browser, add `SVGtoWKT` as a global.
-  else this.SVGtoWKT = SVGtoWKT;
-
-
+  // ----------------------------------------------------------------------
   // SVG => WKT.
   // @param   {String} svg
   // @return  {String} wkt
-  SVGtoWKT.convert = function(svg) {
+  var convert = function(svg) {
 
     var wkt = 'GEOMETRYCOLLECTION(';
     var els = [];
@@ -75,6 +63,7 @@
   };
 
 
+  // ----------------------------------------------------------------------
   // Construct a WKT line from SVG start/end point coordinates.
   // @param   {Number} x1
   // @param   {Number} y1
@@ -86,6 +75,7 @@
   };
 
 
+  // ----------------------------------------------------------------------
   // Construct a WKT linestrimg from SVG `points` attribute value.
   // @param   {String} points
   // @return  {String} wkt
@@ -104,6 +94,7 @@
   };
 
 
+  // ----------------------------------------------------------------------
   // Construct a WKT polygon from SVG `points` attribute value.
   // @param   {String} points
   // @return  {String} wkt
@@ -125,6 +116,7 @@
   };
 
 
+  // ----------------------------------------------------------------------
   // Construct a WKT polygon from SVG rectangle origin and dimensions.
   // @param   {Number} x
   // @param   {Number} y
@@ -163,12 +155,15 @@
   };
 
 
-  // Construct a WKT line from a SVGPathElement.
-  // @param   {SVGPathElement} path
-  // @return  {String} wkt
-  var __path = function(path) {
+  // Expose AMD / RequireJS module.
+  if (typeof define !== 'undefined' && define.amd) {
+    define('SVGtoWKT', ['jquery'], function() {
+      return SVGtoWKT;
+    });
+  }
 
-  };
+  // If we're in the browser, add `SVGtoWKT` as a global.
+  else this.SVGtoWKT = convert;
 
 
 })();

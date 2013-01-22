@@ -274,8 +274,8 @@
     var parts = [];
 
     // Create component <path> elements.
-    var paths = _.map(d.trim().match(/([^z]+z)/g), function(p) {
-      return __path(p.trim()+'z');
+    var paths = _.map(d.trim().match(/([^Z]+Z)/g), function(p) {
+      return __path(p.trim()+'Z');
     });
 
     // Generate polygon parts.

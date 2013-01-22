@@ -149,8 +149,8 @@
   // @param   {Number} y:       Top left Y.
   // @param   {Number} width:   Rectangle width.
   // @param   {Number} height:  Rectangle height.
-  // @param   {Number} rx:      Horizontal radius.
-  // @param   {Number} ry:      Vertical radius.
+  // @param   {Number} rx:      Horizontal corner radius.
+  // @param   {Number} ry:      Vertical corner radius.
   // @return  {String} wkt:     Generated WKT.
   // @public
   SVGtoWKT.rect = function(x, y, width, height, rx, ry) {

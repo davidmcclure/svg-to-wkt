@@ -10,7 +10,6 @@ SVG paths are converted to "frozen" WKT ```POLYGON```'s using the ```getPointAtL
 
 ```js
 SVGtoWKT.convert('<svg><polygon points="1,2 3,4 5,6" /><line x1="7" y1="8" x2="9" y2="10" /></svg>');
-
 >>> "GEOMETRYCOLLECTION(POLYGON((1 2,3 4,5 6,1 2)),LINESTRING(7 8,9 10))"
 ```
 
@@ -60,8 +59,8 @@ __Returns__
 __Example__
 
 ```js
-SVGtoWKT.convert('<svg><polygon points="1,2 3,4 5,6" /></svg>');
->>> "GEOMETRYCOLLECTION(POLYGON((1 2,3 4,5 6,1 2)))"
+SVGtoWKT.convert('<svg><polygon points="1,2 3,4 5,6" /><line x1="7" y1="8" x2="9" y2="10" /></svg>');
+>>> "GEOMETRYCOLLECTION(POLYGON((1 2,3 4,5 6,1 2)),LINESTRING(7 8,9 10))"
 ```
 
 ---

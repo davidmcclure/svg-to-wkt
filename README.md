@@ -4,7 +4,7 @@ SVG-to-WKT converts [SVG](https://developer.mozilla.org/en-US/docs/SVG) (Scalabl
 
 SVG-to-WKT implements all SVG graphic elements that directly encode geometric data: ```<circle>```, ```<ellipse>```, ```<line>```, ```<path>```, ```<polygon>```, ```<polyline>```, and ```<rect>```. SVG styles are ignored, since WKT has no notion of presentation, only shape.
 
-SVG paths are converted to "frozen" WKT POLYGONs (curves are interpolated at a customizable density level and written as a series of fixed points) using the getPointAtLength() method on <path> elements.
+SVG paths are converted to "frozen" WKT ```POLYGON```s using the ```getPointAtLength``` method on ```<path>``` elements (curves are interpolated at a customizable density level and written as a series of fixed points).
 
 ## Quick Example
 
@@ -15,6 +15,14 @@ SVGtoWKT.convert('<svg><polygon points="1,2 3,4 5,6" /><line x1="7" y1="8" x2="9
 ```
 
 ## In the Browser
+
+SVG-to-WKT uses jQuery (for XML parsing) and Underscore (for sanity).
+
+```html
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="underscore.js"></script>
+<script type="text/javascript" src="svg-to-wkt.js"></script>
+```
 
 ## Documentation
 

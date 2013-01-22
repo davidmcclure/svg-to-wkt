@@ -108,7 +108,7 @@ SVGtoWKT.polyline('1,2 3,4');
 <a name="rect" />
 ### SVGtoWKT.rect()
 
-Constructs a WKT ```POLYGON``` element from the coordinates of the top-left corner of a rectangle, the height/width, and (**TODO**) border radii.
+Constructs a WKT ```POLYGON``` element from the coordinates of the top-left corner of a rectangle and the height/width.
 
 __Arguments__
 
@@ -116,8 +116,8 @@ __Arguments__
 * {Number} **y** - The Y coordinate of the top-left corner.
 * {Number} **width** - The width of the rectangle.
 * {Number} **height** - The height of the rectangle.
-* {Number} **rx** (TODO) - The horizontal border radius.
-* {Number} **ry** (TODO) - The vertical border radius.
+* {Number} **rx** (UNIMPLEMENTED) - The horizontal border radius.
+* {Number} **ry** (UNIMPLEMENTED) - The vertical border radius.
 
 __Returns__
 
@@ -186,7 +186,7 @@ SVGtoWKT.ellipse(0, 0, 10, 20);
 <a name="path" />
 ### SVGtoWKT.path()
 
-Constructs a WKT ```POLYGON``` element from a SVG path string. If the path has "holes" - closed paths inside of closed paths (eg, letters) - they are translated to the WKT subtracted-polygon syntax (```POLYGON((outer1 outer1,...),(inner1 inner2,...))```).
+Constructs a WKT ```POLYGON``` element from a SVG path string. If the path has "holes" - closed paths inside of closed paths (eg, letters) - they are translated to the WKT subtracted-polygon syntax (```POLYGON((outerX1 outerY1,...),(innerX1 innerY1,...))```).
 
 __Arguments__
 

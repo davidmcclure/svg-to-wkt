@@ -180,8 +180,8 @@
   // @param   {Number} pts_per_unit
   // @return  {String} wkt
   SVGtoWKT.circle = function(cx, cy, r, pts_per_unit) {
-    pts_per_unit = pts_per_unit || 1;
 
+    pts_per_unit = pts_per_unit || 1;
     var wkt = 'POLYGON((';
     var pts = [];
 
@@ -214,8 +214,8 @@
   // @param   {Number} pts_per_unit
   // @return  {String} wkt
   SVGtoWKT.ellipse = function(cx, cy, rx, ry, pts_per_unit) {
-    pts_per_unit = pts_per_unit || 1;
 
+    pts_per_unit = pts_per_unit || 1;
     var wkt = 'POLYGON((';
     var pts = [];
 
@@ -226,17 +226,18 @@
 
     // Compute number of points and angle between points.
     var point_count = Math.round(circumference * pts_per_unit);
-    var interval_angle = 360/point_count;
+    var interval_angle = 360 / point_count;
 
     // Generate the ellipse.
     _(point_count).times(function(i) {
-      var angle = (interval_angle*i) * (Math.PI/180);
+      var angle = (interval_angle * i) * (Math.PI / 180);
       var x = cx + rx * Math.cos(angle);
       var y = cy + ry * Math.sin(angle);
       pts.push(String(x)+' '+String(y));
     });
 
     return wkt + pts.join() + '))';
+
   };
 
 
@@ -246,8 +247,15 @@
   // @param   {Number} pts_per_unit
   // @return  {String} wkt
   SVGtoWKT.path = function(d, pts_per_unit) {
+
     pts_per_unit = pts_per_unit || 1;
-    // TODO|dev
+    var wkt = 'POLYGON(';
+
+    // Create component <path> elements.
+    var paths = _.map(d.trim().split('z'), function(p) {
+      return $('<path />').attr('d', p.trim()+'z');
+    });
+
   };
 
 

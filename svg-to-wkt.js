@@ -65,6 +65,11 @@
       ));
     });
 
+    // PATH
+    xml.find('path').each(function(i, path) {
+      els.push(__path(path));
+    });
+
     return wkt + els.join(',') + ')';
 
   };
@@ -157,6 +162,13 @@
 
   };
 
+
+  // Construct a WKT line from a SVGPathElement.
+  // @param   {SVGPathElement} path
+  // @return  {String} wkt
+  var __path = function(path) {
+
+  };
 
 
 })();

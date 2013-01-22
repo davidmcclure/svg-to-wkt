@@ -29,6 +29,7 @@ SVG-to-WKT uses jQuery (for XML parsing) and Underscore (for sanity).
 * **[convert](#convert)**
 * [line](#line)
 * [polyline](#polyline)
+* [polygon](#polygon)
 * [rect](#rect)
 * [circle](#circle)
 * [ellipse](#ellipse)
@@ -101,6 +102,28 @@ __Example__
 ```js
 SVGtoWKT.polyline('1,2 3,4');
 >>> "LINESTRING(1 2,3 4)"
+```
+
+---
+
+<a name="polygon" />
+### SVGtoWKT.polygon()
+
+Constructs a WKT ```POLYGON``` element from the value of the ```points``` attribute on a SVG ```polygon``` element.
+
+__Arguments__
+
+* {String} **points** - The value of the ```points``` attribute on a SVG ```polygon``` element.
+
+__Returns__
+
+* {String} **wkt** - A WKT ```POLYGON```.
+
+__Example__
+
+```js
+SVGtoWKT.polygon('1,2 3,4');
+>>> "POLYGON((1 2,3 4,1 2))"
 ```
 
 ---

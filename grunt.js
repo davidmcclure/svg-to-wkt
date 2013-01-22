@@ -15,8 +15,7 @@ module.exports = function(grunt) {
       specs: 'tests/*.spec.js',
       helpers: [
         'components/jquery/jquery.js',
-        'components/underscore/underscore.js',
-        'components/sinon.js/sinon.js'
+        'components/underscore/underscore.js'
       ],
       server: {
         port: 1337

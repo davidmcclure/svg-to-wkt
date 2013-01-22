@@ -34,8 +34,6 @@ SVG-to-WKT uses jQuery (for XML parsing) and Underscore (for sanity).
 * [ellipse](#ellipse)
 * [path](#path)
 
----
-
 <a name="convert" />
 ### SVGtoWKT.convert(svg)
 
@@ -45,15 +43,16 @@ __Arguments__
 
 * {String} svg - A valid SVG document.
 
+__Returns__
+
+* {String} wkt - A WKT ```GEOMETRYCOLLECTION```.
+
 __Example__
 
 ```js
 SVGtoWKT.convert('<svg><polygon points="1,2 3,4 5,6" /></svg>');
 >>> "GEOMETRYCOLLECTION(POLYGON((1 2,3 4,5 6,1 2)))"
 ```
-
-
----
 
 <a name="line" />
 ### SVGtoWKT.line(x1, y1, x2, y2)
@@ -67,6 +66,10 @@ __Arguments__
 * {Number} x2 - The X coordinate of the end point.
 * {Number} y2 - The Y coordinate of the end point.
 
+__Returns__
+
+* {String} wkt - A WKT ```LINESTRING```.
+
 __Example__
 
 ```js
@@ -74,8 +77,25 @@ SVGtoWKT.line(1, 2, 3, 4);
 >>> "LINESTRING(1 2,3 4)"
 ```
 
+<a name="polyline" />
+### SVGtoWKT.polyline()
 
----
+Constructs a WKT ```LINESTRING``` element from the value of the ```points``` attribute on a SVG ```polyline``` element.
+
+__Arguments__
+
+* {String} points - The value of the ```points``` attribute on a SVG ```polyline``` element.
+
+__Returns__
+
+* {String} wkt - A WKT ```LINESTRING```.
+
+__Example__
+
+```js
+SVGtoWKT.polyline('1,2 3,4');
+>>> "LINESTRING(1 2,3 4)"
+```
 
 ## Credits
 

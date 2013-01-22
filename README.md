@@ -210,4 +210,4 @@ SVGtoWKT.path('M10 10 C 20 20, 40 20, 50 10');
 
 The ```path``` method follows the approach described by Guilherme Mussi on his blog: "[Converting SVG paths to polygons](http://whaticode.com/2012/02/01/converting-svg-paths-to-polygons)."
 
-This document follows the layout used by Caolan McMahon (@caolan) in projects like @caolan/async.
+This document follows the layout used by Caolan McMahon ([caolan](https://github.com/caolan)) in projects like [async](https://github.com/caolan/async).

@@ -207,6 +207,9 @@
       pts.push(String(x)+' '+String(y));
     });
 
+    // Close.
+    pts.push(pts[0]);
+
     return wkt + pts.join() + '))';
 
   };

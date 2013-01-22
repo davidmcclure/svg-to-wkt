@@ -47,7 +47,7 @@ SVG-to-WKT uses jQuery (for XML parsing) and Underscore (for sanity).
 <a name="convert" />
 ### SVGtoWKT.convert(svg)
 
-Top-level routine that takes a raw SVG document and returns a WKT string. Queries the document for supported SVG elements, extracts attribute data, calls delegates to the individual converter methods, and wraps the component WKT strings into a single ```GEOMETRYCOLLECTION```.
+Top-level routine that takes a raw SVG document and returns a WKT string. Queries the document for supported SVG elements, extracts attribute data, calls the individual converter methods, and wraps the component WKT strings into a single ```GEOMETRYCOLLECTION```.
 
 __Arguments__
 

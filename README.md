@@ -43,17 +43,37 @@ Top-level routine that takes a raw SVG document and returns a WKT string.
 
 __Arguments__
 
-* svg - A valid SVG document.
+* {String} svg - A valid SVG document.
 
 __Example__
 
 ```js
 SVGtoWKT.convert('<svg><polygon points="1,2 3,4 5,6" /></svg>');
 >>> "GEOMETRYCOLLECTION(POLYGON((1 2,3 4,5 6,1 2)))"
+
+---
+
+<a name="line" />
+### SVGtoWKT.line(x1, y1, x2, y2)
+
+Constructs a WKT ```LINESTRING``` element from two points.
+
+__Arguments__
+
+* {Number} x1 - The X coordinate of the start point.
+* {Number} y1 - The Y coordinate of the start point.
+* {Number} x2 - The X coordinate of the end point.
+* {Number} y2 - The Y coordinate of the end point.
+
+__Example__
+
+```js
+SVGtoWKT.line(1, 2, 3, 4);
+>>> "LINESTRING(1 2,3 4)"
 ```
 
 ## Credits
 
 The ```path``` method follows the approach described by Guilherme Mussi on his blog: "[Converting SVG paths to polygons](http://whaticode.com/2012/02/01/converting-svg-paths-to-polygons)."
 
-This document follows the layout used by Caolan McMahon (caolan) in projects like caolan/async.
+This document follows the layout used by Caolan McMahon (@caolan) in projects like @caolan/async.

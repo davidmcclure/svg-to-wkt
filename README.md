@@ -258,7 +258,6 @@ SVGtoWKT.circle(0, 0, 1);
 SVGtoWKT.setPrecision(5);
 SVGtoWKT.circle(0, 0, 1);
 >>> "POLYGON((1 0,0.5 0.86603,-0.5 0.86603,-1 0,-0.5 -0.86603,0.5 -0.86603,1 0))"
-
 ```
 
 ---
@@ -266,7 +265,7 @@ SVGtoWKT.circle(0, 0, 1);
 <a name="setDensity" />
 ### SVGtoWKT.setDensity(density)
 
-Set the internal variable used to determine the number of points to interpolate to linear pixel of path distance while converting ```<circle>```, ```<ellipse>```, and ```<path>``` elements. If ```setDensity``` is never called, the default value is 1.
+Set the internal variable used to determine the number of points to interpolate per linear pixel of path distance while converting ```<circle>```, ```<ellipse>```, and ```<path>``` elements. If ```setDensity``` is never called, the default value is 1.
 
 __Arguments__
 

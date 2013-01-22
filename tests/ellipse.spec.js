@@ -21,8 +21,6 @@ describe('ellipse', function() {
 
     // Should have 9 points.
     expect(points.length).toEqual(9);
-    // WKT polygon should be closed.
-    expect(points[0]).toEqual(points[8]);
 
     // Positive X-axis intercept.
     var p0 = points[0].split(' ');
@@ -44,15 +42,30 @@ describe('ellipse', function() {
     expect(p3[0]).toBeLessThan(0);
     expect(p3[1]).toBeGreaterThan(0);
 
+    // Negative X-axis intercept.
+    var p4 = points[4].split(' ');
+    expect(parseFloat(p4[0], 10)).toEqual(-1);
+    expect(parseFloat(p4[1], 10)).toEqual(0);
+
     // Quadrant 3 point.
     var p5 = points[5].split(' ');
     expect(p5[0]).toBeLessThan(0);
     expect(p5[1]).toBeLessThan(0);
 
+    // Negative Y-axis intercept.
+    var p6 = points[6].split(' ');
+    expect(parseFloat(p6[0], 10)).toEqual(0);
+    expect(parseFloat(p6[1], 10)).toEqual(-1.6);
+
     // Quadrant 4 point.
     var p7 = points[7].split(' ');
     expect(p7[0]).toBeGreaterThan(0);
     expect(p7[1]).toBeLessThan(0);
+
+    // Closing point.
+    var p8 = points[8].split(' ');
+    expect(parseFloat(p8[0], 10)).toEqual(1);
+    expect(parseFloat(p8[1], 10)).toEqual(0);
 
   });
 

@@ -2,7 +2,7 @@
 
 SVG-to-WKT converts [SVG](https://developer.mozilla.org/en-US/docs/SVG) (Scalable Vector Graphics) geometry data and XML documents into [WKT](http://en.wikipedia.org/wiki/Well-known_text) (Well-Known Text), a markup language for representing vector geometry on maps implemented by spatially-enabled databases like PostGIS and MySQL.
 
-SVG-to-WKT supports all SVG graphic elements that directly encode geometric data: ```<circle>```, ```<ellipse>```, ```<line>```, ```<path>```, ```<polygon>```, ```<polyline>```, and ```<rect>```. SVG styles are ignored, since WKT has no notion of presentation, only shape.
+SVG-to-WKT supports all SVG elements that directly encode geometric data: ```<circle>```, ```<ellipse>```, ```<line>```, ```<path>```, ```<polygon>```, ```<polyline>```, and ```<rect>```. SVG styles are ignored, since WKT has no notion of presentation, only shape.
 
 SVG paths are converted to "frozen" WKT ```POLYGON```'s using the ```getPointAtLength``` method on ```<path>``` elements - curves are interpolated at a customizable density level and written as a series of fixed points.
 
@@ -85,7 +85,7 @@ SVGtoWKT.line(1, 2, 3, 4);
 ---
 
 <a name="polyline" />
-### SVGtoWKT.polyline()
+### SVGtoWKT.polyline(points)
 
 Constructs a WKT ```LINESTRING``` element from the value of the ```points``` attribute on a SVG ```polyline``` element.
 
@@ -107,7 +107,7 @@ SVGtoWKT.polyline('1,2 3,4');
 ---
 
 <a name="polygon" />
-### SVGtoWKT.polygon()
+### SVGtoWKT.polygon(points)
 
 Constructs a WKT ```POLYGON``` element from the value of the ```points``` attribute on a SVG ```polygon``` element.
 
@@ -129,7 +129,7 @@ SVGtoWKT.polygon('1,2 3,4');
 ---
 
 <a name="rect" />
-### SVGtoWKT.rect()
+### SVGtoWKT.rect(x, y, width, height, rx, ry)
 
 Constructs a WKT ```POLYGON``` element from the coordinates of the top-left corner of a rectangle and the height/width.
 
@@ -156,7 +156,7 @@ SVGtoWKT.rect(1, 2, 3, 4);
 ---
 
 <a name="circle" />
-### SVGtoWKT.circle()
+### SVGtoWKT.circle(cx, cy, r, density)
 
 Constructs a WKT ```POLYGON``` element from a circle center point and radius.
 
@@ -181,7 +181,7 @@ SVGtoWKT.circle(0, 0, 10);
 ---
 
 <a name="ellipse" />
-### SVGtoWKT.ellipse()
+### SVGtoWKT.ellipse(cx, cy, rx, ry, density)
 
 Constructs a WKT ```POLYGON``` element from a ellipse center point, horizontal radius, and vertical radius.
 
@@ -207,13 +207,13 @@ SVGtoWKT.ellipse(0, 0, 10, 20);
 ---
 
 <a name="path" />
-### SVGtoWKT.path()
+### SVGtoWKT.path(d, density)
 
 Constructs a WKT ```POLYGON``` element from a SVG path string. If the path has "holes" - closed paths inside of closed paths (eg, letters) - they are translated to the WKT subtracted-polygon syntax (```POLYGON((outerX1 outerY1,...),(innerX1 innerY1,...))```).
 
 __Arguments__
 
-* {Number} **d** - A SVG path string, perhaps from the ```d``` attribute on a ```<path>``` element.
+* {Number} **d** - A SVG path string, usually from the ```d``` attribute on a ```<path>``` element.
 * {Number} **density** (optional, defaults to 1) - The number of ```POLYGON``` points that should be rendered per unit of linear pixel length. Higher density results in more points, higher resolution.
 
 __Returns__

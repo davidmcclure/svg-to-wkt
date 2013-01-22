@@ -26,7 +26,7 @@ SVG-to-WKT uses jQuery (for XML parsing) and Underscore (for sanity).
 
 ## Documentation
 
-* [convert](#convert)
+* **[convert](#convert)**
 * [line](#line)
 * [polyline](#polyline)
 * [rect](#rect)
@@ -52,6 +52,7 @@ SVGtoWKT.convert('<svg><polygon points="1,2 3,4 5,6" /></svg>');
 >>> "GEOMETRYCOLLECTION(POLYGON((1 2,3 4,5 6,1 2)))"
 ```
 
+
 ---
 
 <a name="line" />
@@ -72,6 +73,9 @@ __Example__
 SVGtoWKT.line(1, 2, 3, 4);
 >>> "LINESTRING(1 2,3 4)"
 ```
+
+
+---
 
 ## Credits
 

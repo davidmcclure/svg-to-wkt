@@ -185,14 +185,18 @@
     var wkt = 'POLYGON((';
     var pts = [];
 
-    var circumference   = Math.PI*2*r;
-    var point_count     = Math.round(circumference*pts_per_unit);
-    var interval_angle  = 360/point_count;
+    // Compute number of points.
+    var circumference = Math.PI * 2 * r;
+    var point_count = Math.round(circumference * pts_per_unit);
 
+    // Compute angle between points.
+    var interval_angle = 360 / point_count;
+
+    // Genrate the circle.
     _(point_count).times(function(i) {
-      var angle = (interval_angle*i) * (Math.PI/180);
-      var x = r * Math.cos(angle);
-      var y = r * Math.sin(angle);
+      var angle = (interval_angle * i) * (Math.PI / 180);
+      var x = cx + r * Math.cos(angle);
+      var y = cy + r * Math.sin(angle);
       pts.push(String(x)+' '+String(y));
     });
 
@@ -211,7 +215,28 @@
   // @return  {String} wkt
   SVGtoWKT.ellipse = function(cx, cy, rx, ry, pts_per_unit) {
     pts_per_unit = pts_per_unit || 1;
-    // TODO|dev
+
+    var wkt = 'POLYGON((';
+    var pts = [];
+
+    // Approximate the circumference.
+    var circumference = 2 * Math.PI * Math.sqrt(
+      (Math.pow(rx, 2) + Math.pow(ry, 2)) / 2
+    );
+
+    // Compute number of points and angle between points.
+    var point_count = Math.round(circumference * pts_per_unit);
+    var interval_angle = 360/point_count;
+
+    // Generate the ellipse.
+    _(point_count).times(function(i) {
+      var angle = (interval_angle*i) * (Math.PI/180);
+      var x = cx + rx * Math.cos(angle);
+      var y = cy + ry * Math.sin(angle);
+      pts.push(String(x)+' '+String(y));
+    });
+
+    return wkt + pts.join() + '))';
   };
 
 

@@ -2,7 +2,7 @@
 
 SVG-to-WKT converts [SVG](https://developer.mozilla.org/en-US/docs/SVG) (Scalable Vector Graphics) geometry data and XML documents into [WKT](http://en.wikipedia.org/wiki/Well-known_text) (Well-Known Text), a markup language for representing vector geometry on maps implemented by spatially-enabled databases like PostGIS and MySQL.
 
-SVG-to-WKT implements 7 of the 10 SVG graphic elements: ```<circle>```, ```<ellipse>```, ```<line>```, ```<path>```, ```<polygon>```, ```<polyline>```, and ```<rect>```. ```<image>```, ```<text>```, and ```<use>```, which do not encode geometric data, are not parsed. SVG styles are ignored, since WKT has no notion of presentation, only shape.
+SVG-to-WKT implements all SVG graphic elements that directly encode geometric data: ```<circle>```, ```<ellipse>```, ```<line>```, ```<path>```, ```<polygon>```, ```<polyline>```, and ```<rect>```. SVG styles are ignored, since WKT has no notion of presentation, only shape.
 
 SVG paths are converted to "frozen" WKT POLYGONs (curves are interpolated at a customizable density level and written as a series of fixed points) using the getPointAtLength() method on <path> elements.
 

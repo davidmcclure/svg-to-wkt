@@ -14,8 +14,8 @@
 
   // ----------------------------------------------------------------------
   // SVG => WKT.
-  // @param   {String} svg: The input SVG markup.
-  // @return  {String} wkt: The generated WKT.
+  // @param   {String} svg
+  // @return  {String} wkt
   SVGtoWKT.convert = function(svg) {
 
     var wkt = 'GEOMETRYCOLLECTION(';
@@ -68,11 +68,11 @@
 
   // ----------------------------------------------------------------------
   // Construct a WKT line from SVG start/end point coordinates.
-  // @param   {Number} x1:    Start X coordinate.
-  // @param   {Number} y1:    Start Y coordinate.
-  // @param   {Number} x2:    End X coordinate.
-  // @param   {Number} y2:    End Y coordinate.
-  // @return  {String} wkt:   The generated WKT.
+  // @param   {Number} x1
+  // @param   {Number} y1
+  // @param   {Number} x2
+  // @param   {Number} y2
+  // @return  {String} wkt
   SVGtoWKT.line = function(x1, y1, x2, y2) {
     return 'LINESTRING('+x1+' '+y1+','+x2+' '+y2+')';
   };
@@ -80,8 +80,8 @@
 
   // ----------------------------------------------------------------------
   // Construct a WKT linestrimg from SVG `points` attribute value.
-  // @param   {String} points:  The `points` attribute value.
-  // @return  {String} wkt:     The generated WKT.
+  // @param   {String} points
+  // @return  {String} wkt
   SVGtoWKT.polyline = function(points) {
 
     var wkt = 'LINESTRING(';
@@ -99,8 +99,8 @@
 
   // ----------------------------------------------------------------------
   // Construct a WKT polygon from SVG `points` attribute value.
-  // @param   {String} points:  The `points` attribute value.
-  // @return  {String} wkt:     The generated WKT.
+  // @param   {String} points
+  // @return  {String} wkt
   SVGtoWKT.polygon = function(points) {
 
     var wkt = 'POLYGON((';
@@ -121,34 +121,29 @@
 
   // ----------------------------------------------------------------------
   // Construct a WKT polygon from SVG rectangle origin and dimensions.
-  // @param   {Number} x:       Top left corner X coordinate.
-  // @param   {Number} y:       Top left corner Y coordinate.
-  // @param   {Number} width:   Width of the rectangle.
-  // @param   {Number} height:  Height of the rectangle.
-  // @param   {Number} rx:      Horizontal corner radius.
-  // @param   {Number} ry:      Vertical corner radius.
-  // @return  {String} wkt:     The generated WKT.
+  // @param   {Number} x
+  // @param   {Number} y
+  // @param   {Number} width
+  // @param   {Number} height
+  // @param   {Number} rx
+  // @param   {Number} ry
+  // @return  {String} wkt
   SVGtoWKT.rect = function(x, y, width, height, rx, ry) {
 
     var wkt = 'POLYGON((';
     var pts = [];
 
     // 0,0 origin by default.
-    if (_.isNaN(x)) x = 0;
-    if (_.isNaN(y)) y = 0;
+    if (!_.isNumber(x)) x = 0;
+    if (!_.isNumber(y)) y = 0;
 
     // No corner rounding.
-    if (_.isNaN(rx) || _.isNaN(ry)) {
-      // Top left.
-      pts.push([x, y]);
-      // Top right.
-      pts.push([x+width, y]);
-      // Bottom right.
-      pts.push([x+width, y+height]);
-      // Bottom left.
-      pts.push([x, y+height]);
-      // Close.
-      pts.push([x, y]);
+    if (!_.isNumber(rx) || !_.isNumber(ry)) {
+      pts.push(String(x)+' '+String(y));              // top left
+      pts.push(String(x+width)+' '+String(y));        // top right
+      pts.push(String(x+width)+' '+String(y+height)); // bottom right
+      pts.push(String(x)+' '+String(y+height));       // bottom left
+      pts.push(String(x)+' '+String(y));              // close
     }
 
     // TODO|dev: Corner rounding.

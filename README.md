@@ -50,6 +50,7 @@ __Example__
 ```js
 SVGtoWKT.convert('<svg><polygon points="1,2 3,4 5,6" /></svg>');
 >>> "GEOMETRYCOLLECTION(POLYGON((1 2,3 4,5 6,1 2)))"
+```
 
 ---
 

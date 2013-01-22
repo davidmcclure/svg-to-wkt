@@ -6,6 +6,7 @@
 // http://dclure.org
 
 module.exports = function(grunt) {
+
   grunt.loadNpmTasks('grunt-jasmine-runner');
   grunt.initConfig({
 
@@ -23,4 +24,7 @@ module.exports = function(grunt) {
     }
 
   });
+
+  grunt.registerTask('default', 'jasmine');
+
 };

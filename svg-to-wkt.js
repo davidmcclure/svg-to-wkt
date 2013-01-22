@@ -10,12 +10,14 @@
 
 
   var SVGtoWKT = {};
+  var SVGNS = 'http://www.w3.org/2000/svg';
 
 
   // ----------------------------------------------------------------------
   // SVG => WKT.
-  // @param   {String} svg
-  // @return  {String} wkt
+  // @param   {String} svg: SVG markup.
+  // @return  {String} wkt: Generated WKT.
+  // @public
   SVGtoWKT.convert = function(svg) {
 
     var wkt = 'GEOMETRYCOLLECTION(';
@@ -87,11 +89,12 @@
 
   // ----------------------------------------------------------------------
   // Construct a WKT line from SVG start/end point coordinates.
-  // @param   {Number} x1
-  // @param   {Number} y1
-  // @param   {Number} x2
-  // @param   {Number} y2
-  // @return  {String} wkt
+  // @param   {Number} x1:  Start X.
+  // @param   {Number} y1:  Start Y.
+  // @param   {Number} x2:  End X.
+  // @param   {Number} y2:  End Y.
+  // @return  {String} wkt: Generated WKT.
+  // @public
   SVGtoWKT.line = function(x1, y1, x2, y2) {
     return 'LINESTRING('+x1+' '+y1+','+x2+' '+y2+')';
   };
@@ -99,8 +102,9 @@
 
   // ----------------------------------------------------------------------
   // Construct a WKT linestrimg from SVG `points` attribute value.
-  // @param   {String} points
-  // @return  {String} wkt
+  // @param   {String} points:  <polyline> `points` attribute value.
+  // @return  {String} wkt:     Generated WKT.
+  // @public
   SVGtoWKT.polyline = function(points) {
 
     var wkt = 'LINESTRING(';
@@ -118,8 +122,9 @@
 
   // ----------------------------------------------------------------------
   // Construct a WKT polygon from SVG `points` attribute value.
-  // @param   {String} points
-  // @return  {String} wkt
+  // @param   {String} points:  <polygon> `points` attribute value.
+  // @return  {String} wkt:     Generated WKT.
+  // @public
   SVGtoWKT.polygon = function(points) {
 
     var wkt = 'POLYGON((';
@@ -140,13 +145,14 @@
 
   // ----------------------------------------------------------------------
   // Construct a WKT polygon from SVG rectangle origin and dimensions.
-  // @param   {Number} x
-  // @param   {Number} y
-  // @param   {Number} width
-  // @param   {Number} height
-  // @param   {Number} rx
-  // @param   {Number} ry
-  // @return  {String} wkt
+  // @param   {Number} x:       Top left X.
+  // @param   {Number} y:       Top left Y.
+  // @param   {Number} width:   Rectangle width.
+  // @param   {Number} height:  Rectangle height.
+  // @param   {Number} rx:      Horizontal radius.
+  // @param   {Number} ry:      Vertical radius.
+  // @return  {String} wkt:     Generated WKT.
+  // @public
   SVGtoWKT.rect = function(x, y, width, height, rx, ry) {
 
     var wkt = 'POLYGON((';
@@ -174,20 +180,21 @@
 
   // ----------------------------------------------------------------------
   // Construct a WKT polygon for a circle from origin and radius.
-  // @param   {Number} cx
-  // @param   {Number} cy
-  // @param   {Number} r
-  // @param   {Number} pts_per_unit
-  // @return  {String} wkt
-  SVGtoWKT.circle = function(cx, cy, r, pts_per_unit) {
+  // @param   {Number} cx:      Center X.
+  // @param   {Number} cy:      Center Y.
+  // @param   {Number} r:       Radius.
+  // @param   {Number} density: Number of points generated per pixel.
+  // @return  {String} wkt:     Generated WKT.
+  // @public
+  SVGtoWKT.circle = function(cx, cy, r, density) {
 
-    pts_per_unit = pts_per_unit || 1;
+    density = density || 1;
     var wkt = 'POLYGON((';
     var pts = [];
 
     // Compute number of points.
     var circumference = Math.PI * 2 * r;
-    var point_count = Math.round(circumference * pts_per_unit);
+    var point_count = Math.round(circumference * density);
 
     // Compute angle between points.
     var interval_angle = 360 / point_count;
@@ -207,15 +214,16 @@
 
   // ----------------------------------------------------------------------
   // Construct a WKT polygon for an ellipse from origin and radii.
-  // @param   {Number} cx
-  // @param   {Number} cy
-  // @param   {Number} rx
-  // @param   {Number} ry
-  // @param   {Number} pts_per_unit
-  // @return  {String} wkt
-  SVGtoWKT.ellipse = function(cx, cy, rx, ry, pts_per_unit) {
+  // @param   {Number} cx:      Center X.
+  // @param   {Number} cy:      Center Y.
+  // @param   {Number} rx:      Horizontal radius.
+  // @param   {Number} ry:      Vertical radius.
+  // @param   {Number} density: Number of points generated per pixel.
+  // @return  {String} wkt:     Generated WKT.
+  // @public
+  SVGtoWKT.ellipse = function(cx, cy, rx, ry, density) {
 
-    pts_per_unit = pts_per_unit || 1;
+    density = density || 1;
     var wkt = 'POLYGON((';
     var pts = [];
 
@@ -225,7 +233,7 @@
     );
 
     // Compute number of points and angle between points.
-    var point_count = Math.round(circumference * pts_per_unit);
+    var point_count = Math.round(circumference * density);
     var interval_angle = 360 / point_count;
 
     // Generate the ellipse.
@@ -243,19 +251,56 @@
 
   // ----------------------------------------------------------------------
   // Construct a WKT polygon from a SVG path string.
-  // @param   {String} d
-  // @param   {Number} pts_per_unit
-  // @return  {String} wkt
-  SVGtoWKT.path = function(d, pts_per_unit) {
+  // @param   {String} d:       <path> `d` attribute value.
+  // @param   {Number} density: Number of points generated per pixel.
+  // @return  {String} wkt:     Generated WKT.
+  // @public
+  SVGtoWKT.path = function(d, density) {
 
-    pts_per_unit = pts_per_unit || 1;
+    density = density || 1;
     var wkt = 'POLYGON(';
+    var parts = [];
 
     // Create component <path> elements.
-    var paths = _.map(d.trim().split('z'), function(p) {
-      return $('<path />').attr('d', p.trim()+'z');
+    var paths = _.map(d.trim().match(/([^z]+z)/g), function(p) {
+      return __path(p.trim()+'z');
     });
 
+    // Generate polygon parts.
+    _.each(paths, function(path) {
+
+      var part = '(';
+      var pts = [];
+
+      // Get number of points.
+      var length = path.getTotalLength();
+      var point_count = Math.round(length * density);
+
+      // Render points.
+      _(point_count).times(function(i) {
+        var distance = (length * i) / point_count;
+        var point = path.getPointAtLength(distance);
+        pts.push(String(point.x)+' '+String(point.y));
+      });
+
+      parts.push(part + pts.join() + ')');
+
+    });
+
+    return wkt + parts.join() + ')';
+
+  };
+
+
+  // ----------------------------------------------------------------------
+  // Construct a SVG path element.
+  // @param   {String} d:             <path> `d` attribute value.
+  // @return  {SVGPathElement} path:  The new <path> element.
+  // @private
+  var __path = function(d) {
+    var path = document.createElementNS(SVGNS, 'path');
+    path.setAttributeNS(null, 'd', d);
+    return path;
   };
 
 

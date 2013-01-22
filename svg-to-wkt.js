@@ -26,6 +26,16 @@
     // Parse the raw XML.
     var xml = $($.parseXML(svg));
 
+    // POLYGON
+    xml.find('polygon').each(function(i, polygon) {
+      els.push(SVGtoWKT.polygon($(polygon).attr('points')));
+    });
+
+    // POLYLINE
+    xml.find('polyline').each(function(i, polyline) {
+      els.push(SVGtoWKT.polyline($(polyline).attr('points')));
+    });
+
     // LINE
     xml.find('line').each(function(i, line) {
       els.push(SVGtoWKT.line(
@@ -34,16 +44,6 @@
         parseInt($(line).attr('x2'), 10),
         parseInt($(line).attr('y2'), 10)
       ));
-    });
-
-    // POLYLINE
-    xml.find('polyline').each(function(i, polyline) {
-      els.push(SVGtoWKT.polyline($(polyline).attr('points')));
-    });
-
-    // POLYGON
-    xml.find('polygon').each(function(i, polygon) {
-      els.push(SVGtoWKT.polygon($(polygon).attr('points')));
     });
 
     // RECT

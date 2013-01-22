@@ -13,8 +13,9 @@ module.exports = function(grunt) {
       src: 'svg-to-wkt.js',
       specs: 'tests/*.spec.js',
       helpers: [
-        'helpers/components/jasmine-jquery/lib/jasmine-jquery.js',
-        'helpers/components/sinon.js/sinon.js'
+        'components/jquery/jquery.js',
+        'components/underscore/underscore.js',
+        'components/sinon.js/sinon.js'
       ],
       server: {
         port: 1337

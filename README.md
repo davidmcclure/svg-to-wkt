@@ -270,17 +270,17 @@ __Example__
 ```js
 // 1 point per pixel.
 SVGtoWKT.DENSITY = 1;
-SVGtoWKT.circle(0, 0, 1)
+SVGtoWKT.circle(0, 0, 1);
 >>> "POLYGON((1 0,0.5 0.866,-0.5 0.866,-1 0,-0.5 -0.866,0.5 -0.866,1 0))"
 
 // 2 points per pixel (more points).
 SVGtoWKT.DENSITY = 2;
-SVGtoWKT.circle(0, 0, 1)
+SVGtoWKT.circle(0, 0, 1);
 >>> "POLYGON((1 0,0.885 0.465,0.568 0.823,0.121 0.993,-0.355 0.935,-0.749 0.663,-0.971 0.239,-0.971 -0.239,-0.749 -0.663,-0.355 -0.935,0.121 -0.993,0.568 -0.823,0.885 -0.465,1 0))"
 
 // 0.5 points per pixel (fewer points).
 SVGtoWKT.DENSITY = 0.5;
-SVGtoWKT.circle(0, 0, 1)
+SVGtoWKT.circle(0, 0, 1);
 >>> "POLYGON((1 0,-0.5 0.866,-0.5 -0.866,1 0))"
 ```
 

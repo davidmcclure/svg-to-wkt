@@ -8,16 +8,14 @@
 
 describe('ellipse', function() {
 
-  it('should construct a closed POLYGON WKT shape', function() {
+  it('should construct an elliptical POLYGON WKT shape', function() {
 
     // Create ellipse with a horizontal radius of 1 and a vertical radius
-    // of 1.6 and 1 point-per-pixel-of-length. The circumference of this
-    // ellipse is ~8.38, which rounds 8, meaning that all of the points
-    // are cleanly positioned either on the axes or in the middle of the
-    // major quadrants, allowing us to easily check that the ellipse is
-    // being constructed properly.
-    var el = SVGtoWKT.ellipse(0, 0, 1, 1.6, 1).match(/\(\(([\s\S]+)\)\)/);
-    var points = el[1].split(',');
+    // of 1.6. The circumference of this ellipse is ~8.38, which is
+    // rendered with 8 points, one for each of the axis intercepts and one
+    // for each of the quadrants.
+    var raw = SVGtoWKT.ellipse(0, 0, 1, 1.6).match(/\(\(([\s\S]+)\)\)/);
+    var points = raw[1].split(',');
 
     // Should have 9 points.
     expect(points.length).toEqual(9);

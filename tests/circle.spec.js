@@ -8,15 +8,13 @@
 
 describe('circle', function() {
 
-  it('should construct a closed POLYGON WKT shape', function() {
+  it('should construct a circular POLYGON WKT shape', function() {
 
-    // Create circle with radius of 1.2 and 1 point-per-pixel-of-length.
-    // The circumference of this circle is ~7.53, which rounds to 8,
-    // meaning that all of the points are cleanly positioned either on the
-    // axes or in the middle of the major quadrants, allowing us to easily
-    // check that the circle is being constructed properly.
-    var circle = SVGtoWKT.circle(0, 0, 1.2, 1).match(/\(\(([\s\S]+)\)\)/);
-    var points = circle[1].split(',');
+    // Create circle with radius of 1.2. The circumference of this circle
+    // is ~7.53, which is rendered with 8 points, one for each of the axis
+    // intercepts and one for each of the quadrants.
+    var raw = SVGtoWKT.circle(0, 0, 1.2, 1).match(/\(\(([\s\S]+)\)\)/);
+    var points = raw[1].split(',');
 
     // Should have 9 points.
     expect(points.length).toEqual(9);

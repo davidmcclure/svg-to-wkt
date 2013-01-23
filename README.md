@@ -25,7 +25,7 @@ SVG-to-WKT uses jQuery (for XML parsing) and Underscore (for sanity).
 
 ## Documentation
 
-### Conversion Methods
+### Methods
 
 * **[convert](#convert)**
 * [line](#line)
@@ -36,7 +36,7 @@ SVG-to-WKT uses jQuery (for XML parsing) and Underscore (for sanity).
 * [ellipse](#ellipse)
 * [path](#path)
 
-### Configuration Attributes
+### Settings
 
 * [PRECISION](#PRECISION)
 * [DENSITY](#DENSITY)
@@ -243,7 +243,6 @@ The variable used to determine the number of decimal places computed during poin
 __Example__
 
 ```js
-
 // With 2 decimal places:
 SVGtoWKT.PRECISION = 2;
 SVGtoWKT.circle(0, 0, 1);
@@ -269,7 +268,20 @@ __Arguments__
 __Example__
 
 ```js
-// TODO
+// 1 point per pixel.
+SVGtoWKT.DENSITY = 1;
+SVGtoWKT.circle(0, 0, 1)
+>>> "POLYGON((1 0,0.5 0.866,-0.5 0.866,-1 0,-0.5 -0.866,0.5 -0.866,1 0))"
+
+// 2 points per pixel (more points).
+SVGtoWKT.DENSITY = 2;
+SVGtoWKT.circle(0, 0, 1)
+>>> "POLYGON((1 0,0.885 0.465,0.568 0.823,0.121 0.993,-0.355 0.935,-0.749 0.663,-0.971 0.239,-0.971 -0.239,-0.749 -0.663,-0.355 -0.935,0.121 -0.993,0.568 -0.823,0.885 -0.465,1 0))"
+
+// 0.5 points per pixel (fewer points).
+SVGtoWKT.DENSITY = 0.5;
+SVGtoWKT.circle(0, 0, 1)
+>>> "POLYGON((1 0,-0.5 0.866,-0.5 -0.866,1 0))"
 ```
 
 ---

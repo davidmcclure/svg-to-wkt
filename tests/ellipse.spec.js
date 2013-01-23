@@ -8,6 +8,10 @@
 
 describe('ellipse', function() {
 
+  beforeEach(function() {
+    SVGtoWKT.DENSITY = 1;
+  });
+
   it('should construct an elliptical POLYGON WKT shape', function() {
 
     // Create ellipse with a horizontal radius of 1 and a vertical radius
@@ -64,6 +68,21 @@ describe('ellipse', function() {
     var p8 = points[8].split(' ');
     expect(parseFloat(p8[0], 10)).toEqual(1);
     expect(parseFloat(p8[1], 10)).toEqual(0);
+
+  });
+
+  it('should react to different density settings', function() {
+
+    SVGtoWKT.DENSITY = 1;
+    var raw = SVGtoWKT.ellipse(0, 0, 1, 1.6).match(/\(\(([\s\S]+)\)\)/);
+    var points1 = raw[1].split(',');
+
+    SVGtoWKT.DENSITY = 2;
+    raw = SVGtoWKT.ellipse(0, 0, 1, 1.6).match(/\(\(([\s\S]+)\)\)/);
+    points2 = raw[1].split(',');
+
+    // Should be more points when density is higher.
+    expect(points2.length).toBeGreaterThan(points1.length);
 
   });
 

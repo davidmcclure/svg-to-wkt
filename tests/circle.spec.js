@@ -8,6 +8,10 @@
 
 describe('circle', function() {
 
+  beforeEach(function() {
+    SVGtoWKT.DENSITY = 1;
+  });
+
   it('should construct a circular POLYGON WKT shape', function() {
 
     // Create circle with radius of 1.2. The circumference of this circle
@@ -63,6 +67,21 @@ describe('circle', function() {
     var p8 = points[8].split(' ');
     expect(parseFloat(p8[0], 10)).toEqual(1.2);
     expect(parseFloat(p8[1], 10)).toEqual(0);
+
+  });
+
+  it('should react to different density settings', function() {
+
+    SVGtoWKT.DENSITY = 1;
+    var raw = SVGtoWKT.circle(0, 0, 1.2, 1).match(/\(\(([\s\S]+)\)\)/);
+    var points1 = raw[1].split(',');
+
+    SVGtoWKT.DENSITY = 2;
+    raw = SVGtoWKT.circle(0, 0, 1.2, 1).match(/\(\(([\s\S]+)\)\)/);
+    var points2 = raw[1].split(',');
+
+    // Should be more points when density is higher.
+    expect(points2.length).toBeGreaterThan(points1.length);
 
   });
 

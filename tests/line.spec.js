@@ -8,7 +8,7 @@
 
 describe('line', function() {
 
-  it('should construct a LINESTRING WKT shape', function() {
+  it('should create a LINESTRING shape', function() {
     expect(SVGtoWKT.line(1, 2, 3, 4)).toEqual(
       'LINESTRING(1 2,3 4)'
     );

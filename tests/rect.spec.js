@@ -8,7 +8,7 @@
 
 describe('rect', function() {
 
-  it('should construct a closed POLYGON WKT shape', function() {
+  it('should create a closed POLYGON shape', function() {
     expect(SVGtoWKT.rect(1, 2, 3, 4)).toEqual(
       'POLYGON((1 2,4 2,4 6,1 6,1 2))'
     );

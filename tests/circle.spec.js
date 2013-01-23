@@ -12,7 +12,7 @@ describe('circle', function() {
     SVGtoWKT.DENSITY = 1;
   });
 
-  it('should construct a circular POLYGON WKT shape', function() {
+  it('should create a circular POLYGON shape', function() {
 
     // Create circle with radius of 1.2. The circumference of this circle
     // is ~7.53, which is rendered with 8 points, one for each of the axis

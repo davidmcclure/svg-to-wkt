@@ -12,7 +12,7 @@ describe('ellipse', function() {
     SVGtoWKT.DENSITY = 1;
   });
 
-  it('should construct an elliptical POLYGON WKT shape', function() {
+  it('should create an elliptical POLYGON shape', function() {
 
     // Create ellipse with a horizontal radius of 1 and a vertical radius
     // of 1.6. The circumference of this ellipse is ~8.38, which is

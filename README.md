@@ -1,6 +1,6 @@
 # SVG-to-WKT.js
 
-SVG-to-WKT converts [SVG](https://developer.mozilla.org/en-US/docs/SVG) (Scalable Vector Graphics) geometry data and XML documents into [WKT](http://en.wikipedia.org/wiki/Well-known_text) (Well-Known Text), a markup language for representing vector geometry on maps implemented by spatially-enabled databases like PostGIS and MySQL.
+SVG-to-WKT converts [SVG](https://developer.mozilla.org/en-US/docs/SVG) (Scalable Vector Graphics) XML documents into [WKT](http://en.wikipedia.org/wiki/Well-known_text) (Well-Known Text), a markup language for representing vector geometry on maps implemented by spatially-enabled databases like PostGIS and MySQL.
 
 SVG-to-WKT supports all SVG elements that directly encode geometric data: ```<circle>```, ```<ellipse>```, ```<line>```, ```<path>```, ```<polygon>```, ```<polyline>```, and ```<rect>```. SVG styles are ignored, since WKT has no notion of presentation, only shape.
 
@@ -46,7 +46,7 @@ SVG-to-WKT uses jQuery (for XML parsing) and Underscore (for sanity).
 <a name="convert" />
 ### SVGtoWKT.convert(svg)
 
-Top-level routine that takes a raw SVG document and returns a WKT string. Queries the document for supported SVG elements, extracts attribute data, calls the individual converter methods, and wraps the component WKT strings into a ```GEOMETRYCOLLECTION```.
+Top-level routine that takes a raw SVG document and returns a WKT string. Queries the document for supported SVG elements, extracts attribute data, calls the individual converter methods, and wraps the resulting WKT strings into a ```GEOMETRYCOLLECTION```.
 
 __Arguments__
 
@@ -238,7 +238,7 @@ SVGtoWKT.path('M10 10 C 20 20, 40 20, 50 10Z');
 <a name="PRECISION" />
 ### SVGtoWKT.PRECISION
 
-The variable used to determine the number of decimal places computed during point interpolation while converting ```<circle>```, ```<ellipse>```, and ```<path>``` elements. The default value is 3.
+The value used to determine the number of decimal places computed during point interpolation while converting ```<circle>```, ```<ellipse>```, and ```<path>``` elements. The default value is 3.
 
 __Example__
 
@@ -259,7 +259,7 @@ SVGtoWKT.circle(0, 0, 1);
 <a name="DENSITY" />
 ### SVGtoWKT.DENSITY
 
-The variable used to determine the number of points to interpolate per linear pixel of path distance while converting ```<circle>```, ```<ellipse>```, and ```<path>``` elements. The default value is 1.
+The value used to determine the number of points to interpolate per linear pixel of path distance while converting ```<circle>```, ```<ellipse>```, and ```<path>``` elements. The default value is 1.
 
 __Arguments__
 

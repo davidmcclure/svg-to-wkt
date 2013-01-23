@@ -13,26 +13,33 @@
   var SVGtoWKT = {};
 
 
-  // ----------------------------------------------------------------------
-  // The number of decimal places computed during curve interpolation when
-  // generating points for `<circle>`, `<ellipse>`, and `<path>` elements.
-  // @public
+  /**
+   * The number of decimal places computed during curve interpolation when
+   * generating points for `<circle>`, `<ellipse>`, and `<path>` elements.
+   *
+   * @public
+   */
   SVGtoWKT.PRECISION = 3;
 
 
-  // ----------------------------------------------------------------------
-  // The number of points computed during curve interpolation per unit of
-  // linear pixel length. For example, if a a path is 10px in length, and
-  // `DENSITY` is set to 2, the path will be rendered with 20 points.
-  // @public
+  /**
+   * The number of points computed during curve interpolation per unit of
+   * linear pixel length. For example, if a a path is 10px in length, and
+   * `DENSITY` is set to 2, the path will be rendered with 20 points.
+   *
+   * @public
+   */
   SVGtoWKT.DENSITY = 1;
 
 
-  // ----------------------------------------------------------------------
-  // SVG => WKT.
-  // @param   {String} svg: SVG markup.
-  // @return  {String} wkt: Generated WKT.
-  // @public
+  /**
+   * SVG => WKT.
+   *
+   * @param   {String} svg: SVG markup.
+   * @return  {String}: Generated WKT.
+   *
+   * @public
+   */
   SVGtoWKT.convert = function(svg) {
 
     var wkt = 'GEOMETRYCOLLECTION(';
@@ -102,24 +109,30 @@
   };
 
 
-  // ----------------------------------------------------------------------
-  // Construct a WKT line from SVG start/end point coordinates.
-  // @param   {Number} x1:  Start X.
-  // @param   {Number} y1:  Start Y.
-  // @param   {Number} x2:  End X.
-  // @param   {Number} y2:  End Y.
-  // @return  {String} wkt: Generated WKT.
-  // @public
+  /**
+   * Construct a WKT line from SVG start/end point coordinates.
+   *
+   * @param   {Number} x1:  Start X.
+   * @param   {Number} y1:  Start Y.
+   * @param   {Number} x2:  End X.
+   * @param   {Number} y2:  End Y.
+   * @return  {String}: Generated WKT.
+   *
+   * @public
+   */
   SVGtoWKT.line = function(x1, y1, x2, y2) {
     return 'LINESTRING('+x1+' '+y1+','+x2+' '+y2+')';
   };
 
 
-  // ----------------------------------------------------------------------
-  // Construct a WKT linestrimg from SVG `points` attribute value.
-  // @param   {String} points:  <polyline> `points` attribute value.
-  // @return  {String} wkt:     Generated WKT.
-  // @public
+  /**
+   * Construct a WKT linestrimg from SVG `points` attribute value.
+   *
+   * @param   {String} points:  <polyline> `points` attribute value.
+   * @return  {String}:         Generated WKT.
+   *
+   * @public
+   */
   SVGtoWKT.polyline = function(points) {
 
     var wkt = 'LINESTRING(';
@@ -135,11 +148,14 @@
   };
 
 
-  // ----------------------------------------------------------------------
-  // Construct a WKT polygon from SVG `points` attribute value.
-  // @param   {String} points:  <polygon> `points` attribute value.
-  // @return  {String} wkt:     Generated WKT.
-  // @public
+  /**
+   * Construct a WKT polygon from SVG `points` attribute value.
+   *
+   * @param   {String} points:  <polygon> `points` attribute value.
+   * @return  {String}:         Generated WKT.
+   *
+   * @public
+   */
   SVGtoWKT.polygon = function(points) {
 
     var wkt = 'POLYGON((';
@@ -158,16 +174,19 @@
   };
 
 
-  // ----------------------------------------------------------------------
-  // Construct a WKT polygon from SVG rectangle origin and dimensions.
-  // @param   {Number} x:       Top left X.
-  // @param   {Number} y:       Top left Y.
-  // @param   {Number} width:   Rectangle width.
-  // @param   {Number} height:  Rectangle height.
-  // @param   {Number} rx:      Horizontal corner radius.
-  // @param   {Number} ry:      Vertical corner radius.
-  // @return  {String} wkt:     Generated WKT.
-  // @public
+  /**
+   * Construct a WKT polygon from SVG rectangle origin and dimensions.
+   *
+   * @param   {Number} x:       Top left X.
+   * @param   {Number} y:       Top left Y.
+   * @param   {Number} width:   Rectangle width.
+   * @param   {Number} height:  Rectangle height.
+   * @param   {Number} rx:      Horizontal corner radius.
+   * @param   {Number} ry:      Vertical corner radius.
+   * @return  {String}:         Generated WKT.
+   *
+   * @public
+   */
   SVGtoWKT.rect = function(x, y, width, height, rx, ry) {
 
     var wkt = 'POLYGON((';
@@ -193,13 +212,16 @@
   };
 
 
-  // ----------------------------------------------------------------------
-  // Construct a WKT polygon for a circle from origin and radius.
-  // @param   {Number} cx:      Center X.
-  // @param   {Number} cy:      Center Y.
-  // @param   {Number} r:       Radius.
-  // @return  {String} wkt:     Generated WKT.
-  // @public
+  /**
+   * Construct a WKT polygon for a circle from origin and radius.
+   *
+   * @param   {Number} cx:      Center X.
+   * @param   {Number} cy:      Center Y.
+   * @param   {Number} r:       Radius.
+   * @return  {String} wkt:     Generated WKT.
+   *
+   * @public
+   */
   SVGtoWKT.circle = function(cx, cy, r) {
 
     var wkt = 'POLYGON((';
@@ -228,14 +250,17 @@
   };
 
 
-  // ----------------------------------------------------------------------
-  // Construct a WKT polygon for an ellipse from origin and radii.
-  // @param   {Number} cx:      Center X.
-  // @param   {Number} cy:      Center Y.
-  // @param   {Number} rx:      Horizontal radius.
-  // @param   {Number} ry:      Vertical radius.
-  // @return  {String} wkt:     Generated WKT.
-  // @public
+  /**
+   * Construct a WKT polygon for an ellipse from origin and radii.
+   *
+   * @param   {Number} cx:      Center X.
+   * @param   {Number} cy:      Center Y.
+   * @param   {Number} rx:      Horizontal radius.
+   * @param   {Number} ry:      Vertical radius.
+   * @return  {String} wkt:     Generated WKT.
+   *
+   * @public
+   */
   SVGtoWKT.ellipse = function(cx, cy, rx, ry) {
 
     var wkt = 'POLYGON((';
@@ -266,12 +291,15 @@
   };
 
 
-  // ----------------------------------------------------------------------
-  // Construct a WKT polygon from a SVG path string. Approach from:
-  // http://whaticode.com/2012/02/01/converting-svg-paths-to-polygons/
-  // @param   {String} d:       <path> `d` attribute value.
-  // @return  {String} wkt:     Generated WKT.
-  // @public
+  /**
+   * Construct a WKT polygon from a SVG path string. Approach from:
+   * http://whaticode.com/2012/02/01/converting-svg-paths-to-polygons/
+   *
+   * @param   {String} d:   <path> `d` attribute value.
+   * @return  {String} wkt: Generated WKT.
+   *
+   * @public
+   */
   SVGtoWKT.path = function(d) {
 
     var wkt = 'POLYGON(';
@@ -308,11 +336,14 @@
   };
 
 
-  // ----------------------------------------------------------------------
-  // Construct a SVG path element.
-  // @param   {String} d:             <path> `d` attribute value.
-  // @return  {SVGPathElement} path:  The new <path> element.
-  // @private
+  /**
+   * Construct a SVG path element.
+   *
+   * @param   {String} d:       <path> `d` attribute value.
+   * @return  {SVGPathElement}: The new <path> element.
+   *
+   * @private
+   */
   var __path = function(d) {
     var path = document.createElementNS(SVGNS, 'path');
     path.setAttributeNS(null, 'd', d);
@@ -320,11 +351,14 @@
   };
 
 
-  // ----------------------------------------------------------------------
-  // Round a number to a given number of decimal places.
-  // @param   {Number} val: The number to round.
-  // @return  {Number}:     The rounded value.
-  // @private
+  /**
+   * Round a number to the number of decimal places in `PRECISION`..
+   *
+   * @param   {Number} val: The number to round.
+   * @return  {Number}:     The rounded value.
+   *
+   * @private
+   */
   var __round = function(val) {
     var root = Math.pow(10, SVGtoWKT.PRECISION);
     return Math.round(val * root) / root;

@@ -9,10 +9,23 @@
 (function() {
 
 
-  var SVGtoWKT  = {};
-  var SVGNS     = 'http://www.w3.org/2000/svg';
-  var PRECISION = 3;
-  var DENSITY   = 1;
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  var SVGtoWKT = {};
+
+
+  // ----------------------------------------------------------------------
+  // The number of decimal places computed during curve interpolation when
+  // generating points for `<circle>`, `<ellipse>`, and `<path>` elements.
+  // @public
+  SVGtoWKT.PRECISION = 3;
+
+
+  // ----------------------------------------------------------------------
+  // The number of points computed during curve interpolation per unit of
+  // linear pixel length. For example, if a a path is 10px in length, and
+  // `DENSITY` is set to 2, the path will be rendered with 20 points.
+  // @public
+  SVGtoWKT.DENSITY = 1;
 
 
   // ----------------------------------------------------------------------
@@ -185,19 +198,16 @@
   // @param   {Number} cx:      Center X.
   // @param   {Number} cy:      Center Y.
   // @param   {Number} r:       Radius.
-  // @param   {Number} density: Number of points generated per pixel.
   // @return  {String} wkt:     Generated WKT.
   // @public
-  SVGtoWKT.circle = function(cx, cy, r, density) {
-
-    density = density || DENSITY;
+  SVGtoWKT.circle = function(cx, cy, r) {
 
     var wkt = 'POLYGON((';
     var pts = [];
 
     // Compute number of points.
     var circumference = Math.PI * 2 * r;
-    var point_count = Math.round(circumference * density);
+    var point_count = Math.round(circumference * SVGtoWKT.DENSITY);
 
     // Compute angle between points.
     var interval_angle = 360 / point_count;
@@ -224,12 +234,9 @@
   // @param   {Number} cy:      Center Y.
   // @param   {Number} rx:      Horizontal radius.
   // @param   {Number} ry:      Vertical radius.
-  // @param   {Number} density: Number of points generated per pixel.
   // @return  {String} wkt:     Generated WKT.
   // @public
-  SVGtoWKT.ellipse = function(cx, cy, rx, ry, density) {
-
-    density = density || DENSITY;
+  SVGtoWKT.ellipse = function(cx, cy, rx, ry) {
 
     var wkt = 'POLYGON((';
     var pts = [];
@@ -240,7 +247,7 @@
     );
 
     // Compute number of points and angle between points.
-    var point_count = Math.round(circumference * density);
+    var point_count = Math.round(circumference * SVGtoWKT.DENSITY);
     var interval_angle = 360 / point_count;
 
     // Generate the ellipse.
@@ -263,12 +270,9 @@
   // Construct a WKT polygon from a SVG path string. Approach from:
   // http://whaticode.com/2012/02/01/converting-svg-paths-to-polygons/
   // @param   {String} d:       <path> `d` attribute value.
-  // @param   {Number} density: Number of points generated per pixel.
   // @return  {String} wkt:     Generated WKT.
   // @public
-  SVGtoWKT.path = function(d, density) {
-
-    density = density || DENSITY;
+  SVGtoWKT.path = function(d) {
 
     var wkt = 'POLYGON(';
     var parts = [];
@@ -286,7 +290,7 @@
 
       // Get number of points.
       var length = path.getTotalLength();
-      var point_count = Math.round(length * density);
+      var point_count = Math.round(length * SVGtoWKT.DENSITY);
 
       // Render points.
       _(point_count).times(function(i) {
@@ -301,24 +305,6 @@
 
     return wkt + parts.join() + ')';
 
-  };
-
-
-  // ----------------------------------------------------------------------
-  // Set the number of decimal places computed during point interpolation.
-  // @param {Number} precision: The number of decimal places.
-  // @public
-  SVGtoWKT.setPrecision = function(precision) {
-    PRECISION = precision;
-  };
-
-
-  // ----------------------------------------------------------------------
-  // Set the density coefficient used during point interpolation.
-  // @param {Number} density: Points per linear pixel.
-  // @public
-  SVGtoWKT.setDensity = function(density) {
-    DENSITY = density;
   };
 
 
@@ -340,7 +326,7 @@
   // @return  {Number}:     The rounded value.
   // @private
   var __round = function(val) {
-    var root = Math.pow(10, PRECISION);
+    var root = Math.pow(10, SVGtoWKT.PRECISION);
     return Math.round(val * root) / root;
   };
 

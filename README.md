@@ -25,7 +25,7 @@ SVG-to-WKT uses jQuery (for XML parsing) and Underscore (for sanity).
 
 ## Documentation
 
-### Conversion
+### Conversion Methods
 
 * **[convert](#convert)**
 * [line](#line)
@@ -36,10 +36,10 @@ SVG-to-WKT uses jQuery (for XML parsing) and Underscore (for sanity).
 * [ellipse](#ellipse)
 * [path](#path)
 
-### Configuration
+### Configuration Attributes
 
-* [setPrecision](#setPrecision)
-* [setDensity](#setDensity)
+* [PRECISION](#PRECISION)
+* [DENSITY](#DENSITY)
 
 ---
 
@@ -235,36 +235,32 @@ SVGtoWKT.path('M10 10 C 20 20, 40 20, 50 10Z');
 
 ---
 
-<a name="setPrecision" />
-### SVGtoWKT.setPrecision(precision)
+<a name="PRECISION" />
+### SVGtoWKT.PRECISION
 
-Set the internal variable used to determine the number of decimal places computed during point interpolation while converting ```<circle>```, ```<ellipse>```, and ```<path>``` elements. If ```setPrecision``` is never called, the default value is 3.
-
-__Arguments__
-
-* {Number} **precision** - The number of decimal places to compute.
+The variable used to determine the number of decimal places computed during point interpolation while converting ```<circle>```, ```<ellipse>```, and ```<path>``` elements. The default value is 3.
 
 __Example__
 
 ```js
 
 // With 2 decimal places:
-SVGtoWKT.setPrecision(2);
+SVGtoWKT.PRECISION = 2;
 SVGtoWKT.circle(0, 0, 1);
 >>> "POLYGON((1 0,0.5 0.87,-0.5 0.87,-1 0,-0.5 -0.87,0.5 -0.87,1 0))"
 
 // With 5 decimal places:
-SVGtoWKT.setPrecision(5);
+SVGtoWKT.PRECISION = 5;
 SVGtoWKT.circle(0, 0, 1);
 >>> "POLYGON((1 0,0.5 0.86603,-0.5 0.86603,-1 0,-0.5 -0.86603,0.5 -0.86603,1 0))"
 ```
 
 ---
 
-<a name="setDensity" />
-### SVGtoWKT.setDensity(density)
+<a name="DENSITY" />
+### SVGtoWKT.DENSITY
 
-Set the internal variable used to determine the number of points to interpolate per linear pixel of path distance while converting ```<circle>```, ```<ellipse>```, and ```<path>``` elements. If ```setDensity``` is never called, the default value is 1.
+The variable used to determine the number of points to interpolate per linear pixel of path distance while converting ```<circle>```, ```<ellipse>```, and ```<path>``` elements. The default value is 1.
 
 __Arguments__
 

@@ -8,7 +8,7 @@
 
 describe('ellipse', function() {
 
-  beforeEach(function() {
+  afterEach(function() {
     SVGtoWKT.DENSITY = 1;
   });
 

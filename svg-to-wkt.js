@@ -327,6 +327,9 @@
         pts.push(String(__round(point.x))+' '+String(__round(point.y)));
       });
 
+      // Close.
+      pts.push(pts[0]);
+
       parts.push(part + pts.join() + ')');
 
     });

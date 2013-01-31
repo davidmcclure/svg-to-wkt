@@ -35,12 +35,13 @@
   /**
    * SVG => WKT.
    *
-   * @param   {String} svg: SVG markup.
-   * @return  {String}: Generated WKT.
+   * @param {String} svg: SVG markup.
+   * @return {String}: Generated WKT.
    *
    * @public
    */
   SVGtoWKT.convert = function(svg) {
+    console.log('test');
 
     var wkt = 'GEOMETRYCOLLECTION(';
     var els = [];
@@ -112,11 +113,11 @@
   /**
    * Construct a WKT line from SVG start/end point coordinates.
    *
-   * @param   {Number} x1:  Start X.
-   * @param   {Number} y1:  Start Y.
-   * @param   {Number} x2:  End X.
-   * @param   {Number} y2:  End Y.
-   * @return  {String}: Generated WKT.
+   * @param {Number} x1: Start X.
+   * @param {Number} y1: Start Y.
+   * @param {Number} x2: End X.
+   * @param {Number} y2: End Y.
+   * @return {String}: Generated WKT.
    *
    * @public
    */
@@ -128,8 +129,8 @@
   /**
    * Construct a WKT linestrimg from SVG `points` attribute value.
    *
-   * @param   {String} points:  <polyline> `points` attribute value.
-   * @return  {String}:         Generated WKT.
+   * @param {String} points: <polyline> `points` attribute value.
+   * @return {String}: Generated WKT.
    *
    * @public
    */
@@ -151,8 +152,8 @@
   /**
    * Construct a WKT polygon from SVG `points` attribute value.
    *
-   * @param   {String} points:  <polygon> `points` attribute value.
-   * @return  {String}:         Generated WKT.
+   * @param {String} points: <polygon> `points` attribute value.
+   * @return {String}: Generated WKT.
    *
    * @public
    */
@@ -177,13 +178,13 @@
   /**
    * Construct a WKT polygon from SVG rectangle origin and dimensions.
    *
-   * @param   {Number} x:       Top left X.
-   * @param   {Number} y:       Top left Y.
-   * @param   {Number} width:   Rectangle width.
-   * @param   {Number} height:  Rectangle height.
-   * @param   {Number} rx:      Horizontal corner radius.
-   * @param   {Number} ry:      Vertical corner radius.
-   * @return  {String}:         Generated WKT.
+   * @param {Number} x: Top left X.
+   * @param {Number} y: Top left Y.
+   * @param {Number} width: Rectangle width.
+   * @param {Number} height: Rectangle height.
+   * @param {Number} rx: Horizontal corner radius.
+   * @param {Number} ry: Vertical corner radius.
+   * @return {String}: Generated WKT.
    *
    * @public
    */
@@ -215,10 +216,10 @@
   /**
    * Construct a WKT polygon for a circle from origin and radius.
    *
-   * @param   {Number} cx:      Center X.
-   * @param   {Number} cy:      Center Y.
-   * @param   {Number} r:       Radius.
-   * @return  {String} wkt:     Generated WKT.
+   * @param {Number} cx: Center X.
+   * @param {Number} cy: Center Y.
+   * @param {Number} r: Radius.
+   * @return {String} wkt: Generated WKT.
    *
    * @public
    */
@@ -253,11 +254,11 @@
   /**
    * Construct a WKT polygon for an ellipse from origin and radii.
    *
-   * @param   {Number} cx:      Center X.
-   * @param   {Number} cy:      Center Y.
-   * @param   {Number} rx:      Horizontal radius.
-   * @param   {Number} ry:      Vertical radius.
-   * @return  {String} wkt:     Generated WKT.
+   * @param {Number} cx: Center X.
+   * @param {Number} cy: Center Y.
+   * @param {Number} rx: Horizontal radius.
+   * @param {Number} ry: Vertical radius.
+   * @return {String} wkt: Generated WKT.
    *
    * @public
    */
@@ -295,46 +296,37 @@
    * Construct a WKT polygon from a SVG path string. Approach from:
    * http://whaticode.com/2012/02/01/converting-svg-paths-to-polygons/
    *
-   * @param   {String} d:   <path> `d` attribute value.
-   * @return  {String} wkt: Generated WKT.
+   * @param {String} d: <path> `d` attribute value.
+   * @return {String} wkt: Generated WKT.
    *
    * @public
    */
   SVGtoWKT.path = function(d) {
 
-    var wkt = 'POLYGON(';
-    var parts = [];
+    var wkt;
 
-    // Create component <path> elements.
-    var paths = _.map(d.trim().match(/([^Z]+Z)/g), function(p) {
-      return __path(p.trim()+'Z');
+    // Try to extract polygon paths closed with 'Z'.
+    var polys = _.map(d.trim().match(/([^z]+z)/g), function(p) {
+      return __pathElement(p.trim()+'z');
     });
 
-    // Generate polygon parts.
-    _.each(paths, function(path) {
+    // If closed polygon paths exist, construct a `POLYGON`.
+    if (!_.isEmpty(polys)) {
 
-      var part = '(';
-      var pts = [];
-
-      // Get number of points.
-      var length = path.getTotalLength();
-      var point_count = Math.round(length * SVGtoWKT.DENSITY);
-
-      // Render points.
-      _(point_count).times(function(i) {
-        var distance = (length * i) / point_count;
-        var point = path.getPointAtLength(distance);
-        pts.push(String(__round(point.x))+' '+String(__round(point.y)));
+      var parts = [];
+      _.each(polys, function(poly) {
+        parts.push('(' + __pathPoints(poly).join() + ')');
       });
 
-      // Close.
-      pts.push(pts[0]);
+      return 'POLYGON(' + parts.join() + ')';
 
-      parts.push(part + pts.join() + ')');
+    }
 
-    });
-
-    return wkt + parts.join() + ')';
+    // Otherwise, construct a LINESTRING from the unclosed path.
+    else {
+      var line = __pathElement(d);
+      return 'LINESTRING(' + __pathPoints(line).join() + ')';
+    }
 
   };
 
@@ -342,12 +334,12 @@
   /**
    * Construct a SVG path element.
    *
-   * @param   {String} d:       <path> `d` attribute value.
-   * @return  {SVGPathElement}: The new <path> element.
+   * @param {String} d: <path> `d` attribute value.
+   * @return {SVGPathElement}: The new <path> element.
    *
    * @private
    */
-  var __path = function(d) {
+  var __pathElement = function(d) {
     var path = document.createElementNS(SVGNS, 'path');
     path.setAttributeNS(null, 'd', d);
     return path;
@@ -355,10 +347,39 @@
 
 
   /**
-   * Round a number to the number of decimal places in `PRECISION`..
+   * Construct a SVG path element.
    *
-   * @param   {Number} val: The number to round.
-   * @return  {Number}:     The rounded value.
+   * @param {SVGPathElement} path: A <path> element.
+   * @param {Boolean} close: True if the path should be closed.
+   * @return array: An array of space-delimited coords.
+   *
+   * @private
+   */
+  var __pathPoints = function(path) {
+
+    var pts = [];
+
+    // Get number of points.
+    var length = path.getTotalLength();
+    var count = Math.round(length * SVGtoWKT.DENSITY);
+
+    // Interpolate points.
+    _(count).times(function(i) {
+      var point = path.getPointAtLength((length * i) / count);
+      pts.push(String(__round(point.x))+' '+String(__round(point.y)));
+    });
+
+    if (close) pts.push(pts[0]);
+    return pts;
+
+  };
+
+
+  /**
+   * Round a number to the number of decimal places in `PRECISION`.
+   *
+   * @param {Number} val: The number to round.
+   * @return {Number}: The rounded value.
    *
    * @private
    */

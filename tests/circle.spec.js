@@ -8,9 +8,11 @@
 
 describe('circle', function() {
 
+
   afterEach(function() {
     SVGtoWKT.DENSITY = 1;
   });
+
 
   it('should create a circular POLYGON shape', function() {
 
@@ -70,6 +72,7 @@ describe('circle', function() {
 
   });
 
+
   it('should react to different density settings', function() {
 
     SVGtoWKT.DENSITY = 1;
@@ -84,5 +87,6 @@ describe('circle', function() {
     expect(points2.length).toBeGreaterThan(points1.length);
 
   });
+
 
 });

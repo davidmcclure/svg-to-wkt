@@ -46,7 +46,7 @@ SVG-to-WKT uses jQuery (for XML parsing) and Underscore (for sanity).
 <a name="convert" />
 ### SVGtoWKT.convert(svg)
 
-Converts a raw SVG document into a WKT string.
+Converts an SVG document into a WKT string.
 
 __Arguments__
 

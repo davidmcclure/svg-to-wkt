@@ -8,14 +8,17 @@
 
 describe('path', function() {
 
+
   afterEach(function() {
     SVGtoWKT.DENSITY = 1;
   });
+
 
   it('should create a LINESTRING when path is open');
   it('should create a POLYGON when path is closed with `z`');
   it('should create a POLYGON when path is closed with `Z`');
   it('should create a POLYGON with holes when multiple `z`s');
   it('should react to different density settings');
+
 
 });

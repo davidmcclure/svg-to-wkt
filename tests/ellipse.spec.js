@@ -8,9 +8,11 @@
 
 describe('ellipse', function() {
 
+
   afterEach(function() {
     SVGtoWKT.DENSITY = 1;
   });
+
 
   it('should create an elliptical POLYGON shape', function() {
 
@@ -71,6 +73,7 @@ describe('ellipse', function() {
 
   });
 
+
   it('should react to different density settings', function() {
 
     SVGtoWKT.DENSITY = 1;
@@ -85,5 +88,6 @@ describe('ellipse', function() {
     expect(points2.length).toBeGreaterThan(points1.length);
 
   });
+
 
 });

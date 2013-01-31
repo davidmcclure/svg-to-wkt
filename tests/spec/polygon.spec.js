@@ -9,6 +9,11 @@
 describe('polygon', function() {
 
 
+  beforeEach(function() {
+    _t.reset();
+  });
+
+
   it('should create a closed POLYGON shape', function() {
     expect(SVGtoWKT.polygon('1,2 3,4 5,6')).toEqual(
       'POLYGON((1 2,3 4,5 6,1 2))'

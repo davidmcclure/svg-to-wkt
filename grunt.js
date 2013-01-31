@@ -12,10 +12,11 @@ module.exports = function(grunt) {
 
     jasmine: {
       src: 'svg-to-wkt.js',
-      specs: 'tests/*.spec.js',
+      specs: 'tests/spec/*.spec.js',
       helpers: [
         'components/jquery/jquery.js',
-        'components/underscore/underscore.js'
+        'components/underscore/underscore.js',
+        'tests/helpers.js'
       ],
       server: {
         port: 1337

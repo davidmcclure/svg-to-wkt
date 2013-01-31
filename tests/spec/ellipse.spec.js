@@ -9,9 +9,8 @@
 describe('ellipse', function() {
 
 
-  afterEach(function() {
-    SVGtoWKT.PRECISION = 3;
-    SVGtoWKT.DENSITY = 1;
+  beforeEach(function() {
+    _t.reset();
   });
 
 

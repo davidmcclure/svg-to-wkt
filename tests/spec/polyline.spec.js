@@ -9,6 +9,11 @@
 describe('polyline', function() {
 
 
+  beforeEach(function() {
+    _t.reset();
+  });
+
+
   it('should create a LINESTRING shape', function() {
     expect(SVGtoWKT.polyline('1,2 3,4 5,6')).toEqual(
       'LINESTRING(1 2,3 4,5 6)'

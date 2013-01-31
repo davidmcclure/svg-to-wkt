@@ -9,6 +9,11 @@
 describe('line', function() {
 
 
+  beforeEach(function() {
+    _t.reset();
+  });
+
+
   it('should create a LINESTRING shape', function() {
     expect(SVGtoWKT.line(1, 2, 3, 4)).toEqual(
       'LINESTRING(1 2,3 4)'

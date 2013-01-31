@@ -9,8 +9,8 @@
 describe('convert', function() {
 
 
-  afterEach(function() {
-    SVGtoWKT.PRECISION = 3;
+  beforeEach(function() {
+    _t.reset();
   });
 
 

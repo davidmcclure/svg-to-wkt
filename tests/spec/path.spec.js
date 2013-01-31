@@ -9,8 +9,8 @@
 describe('path', function() {
 
 
-  afterEach(function() {
-    SVGtoWKT.DENSITY = 1;
+  beforeEach(function() {
+    _t.reset();
   });
 
 

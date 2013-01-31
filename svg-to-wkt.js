@@ -297,16 +297,14 @@
    * http://whaticode.com/2012/02/01/converting-svg-paths-to-polygons/
    *
    * @param {String} d: <path> `d` attribute value.
-   * @return {String} wkt: Generated WKT.
+   * @return {String}: Generated WKT.
    *
    * @public
    */
   SVGtoWKT.path = function(d) {
 
-    var wkt;
-
     // Try to extract polygon paths closed with 'Z'.
-    var polys = _.map(d.trim().match(/([^z]+z)/g), function(p) {
+    var polys = _.map(d.trim().match(/[^z|Z]+[z|Z]/g), function(p) {
       return __pathElement(p.trim()+'z');
     });
 
@@ -322,7 +320,7 @@
 
     }
 
-    // Otherwise, construct a LINESTRING from the unclosed path.
+    // Otherwise, construct a `LINESTRING` from the unclosed path.
     else {
       var line = __pathElement(d);
       return 'LINESTRING(' + __pathPoints(line).join() + ')';
@@ -350,13 +348,14 @@
    * Construct a SVG path element.
    *
    * @param {SVGPathElement} path: A <path> element.
-   * @param {Boolean} close: True if the path should be closed.
+   * @param {Boolean} closed: True if the path should be closed.
    * @return array: An array of space-delimited coords.
    *
    * @private
    */
-  var __pathPoints = function(path) {
+  var __pathPoints = function(path, closed) {
 
+    closed = closed || false;
     var pts = [];
 
     // Get number of points.
@@ -364,12 +363,12 @@
     var count = Math.round(length * SVGtoWKT.DENSITY);
 
     // Interpolate points.
-    _(count).times(function(i) {
+    _(count+1).times(function(i) {
       var point = path.getPointAtLength((length * i) / count);
       pts.push(String(__round(point.x))+' '+String(__round(point.y)));
     });
 
-    if (close) pts.push(pts[0]);
+    if (closed) pts.push(pts[0]);
     return pts;
 
   };

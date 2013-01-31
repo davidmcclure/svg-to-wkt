@@ -2,11 +2,11 @@
 
 SVG-to-WKT converts [SVG](https://developer.mozilla.org/en-US/docs/SVG) (Scalable Vector Graphics) into [WKT](http://en.wikipedia.org/wiki/Well-known_text) (Well-Known Text), a markup language for representing vector geometry on maps implemented by spatially-enabled databases like PostGIS and MySQL.
 
-SVG-to-WKT supports all SVG elements that directly encode geometric data: ```<circle>```, ```<ellipse>```, ```<line>```, ```<path>```, ```<polygon>```, ```<polyline>```, and ```<rect>```. SVG styles are ignored, since WKT has no notion of presentation, only shape.
+ - SVG-to-WKT supports all SVG elements that directly encode geometric data: ```<circle>```, ```<ellipse>```, ```<line>```, ```<path>```, ```<polygon>```, ```<polyline>```, and ```<rect>```. SVG styles are ignored, since WKT has no notion of presentation, only shape.
 
-SVG paths are converted to "frozen" WKT polygons using the ```getPointAtLength``` method on ```<path>``` elements - curves are interpolated at a customizable density level and written as a series of fixed points.
+ - SVG paths are converted to frozen WKT polygons using the ```getPointAtLength``` method on ```<path>``` elements - curves are interpolated at a customizable density level and written as a series of fixed points.
 
-All point coordinates are reflected over the Y-axis so that the geometries keep the same orientation when rendered against a spatial coordinate system, where "up" is positive and "down" is negative (as opposed to a document, where numbering starts at the top left and "down" is positive).
+ - All point coordinates are reflected "upwards" over the Y-axis so that geometries keep the same orientation when rendered against a spatial coordinate system.
 
 ## Quick Example
 

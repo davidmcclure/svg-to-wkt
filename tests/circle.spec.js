@@ -19,7 +19,7 @@ describe('circle', function() {
     // Create circle with radius of 1.2. The circumference of this circle
     // is ~7.53, which is rendered with 8 points, one for each of the axis
     // intercepts and one for each of the quadrants.
-    var raw = SVGtoWKT.circle(0, 0, 1.2, 1).match(/\(\(([\s\S]+)\)\)/);
+    var raw = SVGtoWKT.circle(0, 0, 1.2).match(/\(\(([\s\S]+)\)\)/);
     var points = raw[1].split(',');
 
     // Should have 9 points.

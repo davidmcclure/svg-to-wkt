@@ -41,7 +41,6 @@
    * @public
    */
   SVGtoWKT.convert = function(svg) {
-    console.log('test');
 
     var wkt = 'GEOMETRYCOLLECTION(';
     var els = [];
@@ -62,41 +61,39 @@
     // LINE
     xml.find('line').each(function(i, line) {
       els.push(SVGtoWKT.line(
-        parseInt($(line).attr('x1'), 10),
-        parseInt($(line).attr('y1'), 10),
-        parseInt($(line).attr('x2'), 10),
-        parseInt($(line).attr('y2'), 10)
+        parseFloat($(line).attr('x1')),
+        parseFloat($(line).attr('y1')),
+        parseFloat($(line).attr('x2')),
+        parseFloat($(line).attr('y2'))
       ));
     });
 
     // RECT
     xml.find('rect').each(function(i, rect) {
       els.push(SVGtoWKT.rect(
-        parseInt($(rect).attr('x'),       10),
-        parseInt($(rect).attr('y'),       10),
-        parseInt($(rect).attr('width'),   10),
-        parseInt($(rect).attr('height'),  10),
-        parseInt($(rect).attr('rx'),      10),
-        parseInt($(rect).attr('ry'),      10)
+        parseFloat($(rect).attr('x')),
+        parseFloat($(rect).attr('y')),
+        parseFloat($(rect).attr('width')),
+        parseFloat($(rect).attr('height'))
       ));
     });
 
     // CIRCLE
     xml.find('circle').each(function(i, circle) {
       els.push(SVGtoWKT.circle(
-        parseInt($(circle).attr('cx'),  10),
-        parseInt($(circle).attr('cy'),  10),
-        parseInt($(circle).attr('r'),   10)
+        parseFloat($(circle).attr('cx')),
+        parseFloat($(circle).attr('cy')),
+        parseFloat($(circle).attr('r'))
       ));
     });
 
     // ELLIPSE
     xml.find('ellipse').each(function(i, circle) {
       els.push(SVGtoWKT.ellipse(
-        parseInt($(circle).attr('cx'),  10),
-        parseInt($(circle).attr('cy'),  10),
-        parseInt($(circle).attr('rx'),  10),
-        parseInt($(circle).attr('ry'),  10)
+        parseFloat($(circle).attr('cx')),
+        parseFloat($(circle).attr('cy')),
+        parseFloat($(circle).attr('rx')),
+        parseFloat($(circle).attr('ry'))
       ));
     });
 
@@ -182,13 +179,11 @@
    * @param {Number} y: Top left Y.
    * @param {Number} width: Rectangle width.
    * @param {Number} height: Rectangle height.
-   * @param {Number} rx: Horizontal corner radius.
-   * @param {Number} ry: Vertical corner radius.
    * @return {String}: Generated WKT.
    *
    * @public
    */
-  SVGtoWKT.rect = function(x, y, width, height, rx, ry) {
+  SVGtoWKT.rect = function(x, y, width, height) {
 
     var wkt = 'POLYGON((';
     var pts = [];
@@ -198,13 +193,11 @@
     if (!_.isNumber(y)) y = 0;
 
     // No corner rounding.
-    if (!_.isNumber(rx) || !_.isNumber(ry)) {
-      pts.push(String(x)+' '+String(y));              // top left
-      pts.push(String(x+width)+' '+String(y));        // top right
-      pts.push(String(x+width)+' '+String(y+height)); // bottom right
-      pts.push(String(x)+' '+String(y+height));       // bottom left
-      pts.push(String(x)+' '+String(y));              // close
-    }
+    pts.push(String(x)+' '+String(y));              // top left
+    pts.push(String(x+width)+' '+String(y));        // top right
+    pts.push(String(x+width)+' '+String(y+height)); // bottom right
+    pts.push(String(x)+' '+String(y+height));       // bottom left
+    pts.push(String(x)+' '+String(y));              // close
 
     // TODO|dev: Corner rounding.
 

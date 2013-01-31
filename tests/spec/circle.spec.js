@@ -33,18 +33,11 @@ describe('circle', function() {
 
 
   it('should react to different density settings', function() {
-
     SVGtoWKT.DENSITY = 1;
-    var raw = SVGtoWKT.circle(0, 0, 1.2, 1).match(/\(\(([\s\S]+)\)\)/);
-    var points1 = raw[1].split(',');
-
+    var c1 = _t.countPoints(SVGtoWKT.circle(0, 0, 1.2, 1));
     SVGtoWKT.DENSITY = 2;
-    raw = SVGtoWKT.circle(0, 0, 1.2, 1).match(/\(\(([\s\S]+)\)\)/);
-    var points2 = raw[1].split(',');
-
-    // Should be more points when density is higher.
-    expect(points2.length).toBeGreaterThan(points1.length);
-
+    var c2 = _t.countPoints(SVGtoWKT.circle(0, 0, 1.2, 1));
+    expect(c2).toBeGreaterThan(c1);
   });
 
 

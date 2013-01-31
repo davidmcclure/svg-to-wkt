@@ -6,7 +6,7 @@ SVG-to-WKT converts [SVG](https://developer.mozilla.org/en-US/docs/SVG) (Scalabl
 
  - SVG paths are converted to frozen WKT polygons using the browser's ```getPointAtLength``` method on ```<path>``` elements. Curves are interpolated at a customizable density level and written as a series of fixed points.
 
- - On maps, Y-axis values increase "upwards," to the north; in documents, which start counting at the top left corner, Y-axis values increase "downwards" towards the bottom of the screen. To correct for this, all point coordinates are reflected upwards over the Y-axis so that geometries keep the same orientation.
+ - All point coordinates are reflected over the Y-axis so that geometries created in documents (where the Y-axis increases "south," towards the bottom of the screen) keep the same orientation when rendered against spatial coordinate systems (where the Y-axis increases to the north).
 
 ## Quick Example
 

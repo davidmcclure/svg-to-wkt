@@ -42,23 +42,22 @@
    */
   SVGtoWKT.convert = function(svg) {
 
-    var wkt = 'GEOMETRYCOLLECTION(';
     var els = [];
 
     // Parse the raw XML.
     var xml = $($.parseXML(svg));
 
-    // POLYGON
+    // Match `<polygon>` elements.
     xml.find('polygon').each(function(i, polygon) {
       els.push(SVGtoWKT.polygon($(polygon).attr('points')));
     });
 
-    // POLYLINE
+    // Match `<polyline>` elements.
     xml.find('polyline').each(function(i, polyline) {
       els.push(SVGtoWKT.polyline($(polyline).attr('points')));
     });
 
-    // LINE
+    // Match `<line>` elements.
     xml.find('line').each(function(i, line) {
       els.push(SVGtoWKT.line(
         parseFloat($(line).attr('x1')),
@@ -68,7 +67,7 @@
       ));
     });
 
-    // RECT
+    // Match `<rect>` elements.
     xml.find('rect').each(function(i, rect) {
       els.push(SVGtoWKT.rect(
         parseFloat($(rect).attr('x')),
@@ -78,7 +77,7 @@
       ));
     });
 
-    // CIRCLE
+    // Match `<circle>` elements.
     xml.find('circle').each(function(i, circle) {
       els.push(SVGtoWKT.circle(
         parseFloat($(circle).attr('cx')),
@@ -87,7 +86,7 @@
       ));
     });
 
-    // ELLIPSE
+    // Match `<ellipse>` elements.
     xml.find('ellipse').each(function(i, circle) {
       els.push(SVGtoWKT.ellipse(
         parseFloat($(circle).attr('cx')),
@@ -97,12 +96,14 @@
       ));
     });
 
-    // PATH
+    // Match `<path>` elements.
     xml.find('path').each(function(i, path) {
       els.push(SVGtoWKT.path($(path).attr('d')));
     });
 
-    return wkt + els.join(',') + ')';
+    // Comma-delimit the individual WKT geometry strings and wrap them in
+    // a `GEOMETRYCOLLECTION`.
+    return 'GEOMETRYCOLLECTION(' + els.join(',') + ')';
 
   };
 
@@ -133,7 +134,9 @@
    */
   SVGtoWKT.polyline = function(points) {
 
-    // "1,2 3,4 " => "1 2,3 4"
+    // Trim the `points` attribute value, replace commas with spaces and
+    // spaces with commas, and reflect Y-axis values upwards: `1,2 3,4 `
+    // => `1 -2,3 -4`
     var pts = _.map(points.trim().split(' '), function(pt) {
       pt = pt.split(','); pt[1] = -pt[1];
       return pt.join(' ');

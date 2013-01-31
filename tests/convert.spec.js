@@ -50,13 +50,26 @@ describe('convert', function() {
   });
 
 
-  it('should parse a <ellipse>');
+  it('should parse a <ellipse>', function() {
+    SVGtoWKT.PRECISION = 1;
+    expect(SVGtoWKT.convert('<svg><ellipse cx="0" cy="0" rx="1" ry="1.6" /></svg>')).toEqual(
+      'GEOMETRYCOLLECTION(POLYGON((1 0,0.7 1.1,0 1.6,-0.7 1.1,-1 0,-0.7 -1.1,0 -1.6,0.7 -1.1,1 0)))'
+    );
+  });
 
 
-  it('should parse a <path>');
+  it('should parse a <path>', function() {
+    expect(SVGtoWKT.convert('<svg><path d="M0 0L0 1L1 1L1 2" /></svg>')).toEqual(
+      'GEOMETRYCOLLECTION(LINESTRING(0 0,0 1,1 1,1 2))'
+    );
+  });
 
 
-  it('should parse multiple elements');
+  it('should parse multiple elements', function() {
+    expect(SVGtoWKT.convert('<svg><polygon points="1,2 3,4 5,6" /><polyline points="1,2 3,4 5,6" /></svg>')).toEqual(
+      'GEOMETRYCOLLECTION(POLYGON((1 2,3 4,5 6,1 2)),LINESTRING(1 2,3 4,5 6))'
+    );
+  });
 
 
 });

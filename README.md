@@ -6,6 +6,8 @@ SVG-to-WKT supports all SVG elements that directly encode geometric data: ```<ci
 
 SVG paths are converted to "frozen" WKT polygons using the ```getPointAtLength``` method on ```<path>``` elements - curves are interpolated at a customizable density level and written as a series of fixed points.
 
+All point coordinates are reflected over the Y-axis so that the geometries keep the same orientation when rendered against a spatial coordinate system, where "up" is positive and "down" is negative (as opposed to a document, where numbering starts at the top left and "down" is positive).
+
 ## Quick Example
 
 ```js

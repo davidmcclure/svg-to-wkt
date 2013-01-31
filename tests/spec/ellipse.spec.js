@@ -17,7 +17,7 @@ describe('ellipse', function() {
   it('should create an elliptical POLYGON shape', function() {
     SVGtoWKT.PRECISION = 1;
     expect(SVGtoWKT.ellipse(0, 0, 1, 1.6)).toEqual(
-      'POLYGON((1 0,0.7 1.1,0 1.6,-0.7 1.1,-1 0,-0.7 -1.1,0 -1.6,0.7 -1.1,1 0))'
+      'POLYGON((1 0,0.7 -1.1,0 -1.6,-0.7 -1.1,-1 0,-0.7 1.1,0 1.6,0.7 1.1,1 0))'
     );
   });
 

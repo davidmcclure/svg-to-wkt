@@ -119,7 +119,7 @@
    * @public
    */
   SVGtoWKT.line = function(x1, y1, x2, y2) {
-    return 'LINESTRING('+x1+' '+y1+','+x2+' '+y2+')';
+    return 'LINESTRING('+x1+' '+-y1+','+x2+' '+-y2+')';
   };
 
 
@@ -133,15 +133,13 @@
    */
   SVGtoWKT.polyline = function(points) {
 
-    var wkt = 'LINESTRING(';
-    var pts = [];
-
     // "1,2 3,4 " => "1 2,3 4"
-    _.each(points.trim().split(' '), function(pt) {
-      pts.push(pt.replace(',', ' '));
+    var pts = _.map(points.trim().split(' '), function(pt) {
+      pt = pt.split(','); pt[1] = -pt[1];
+      return pt.join(' ');
     });
 
-    return wkt + pts.join() + ')';
+    return 'LINESTRING(' + pts.join() + ')';
 
   };
 
@@ -156,18 +154,16 @@
    */
   SVGtoWKT.polygon = function(points) {
 
-    var wkt = 'POLYGON((';
-    var pts = [];
-
     // "1,2 3,4 " => "1 2,3 4"
-    _.each(points.trim().split(' '), function(pt) {
-      pts.push(pt.replace(',', ' '));
+    var pts = _.map(points.trim().split(' '), function(pt) {
+      pt = pt.split(','); pt[1] = -pt[1];
+      return pt.join(' ');
     });
 
     // Close.
     pts.push(pts[0]);
 
-    return wkt + pts.join() + '))';
+    return 'POLYGON((' + pts.join() + '))';
 
   };
 
@@ -185,7 +181,6 @@
    */
   SVGtoWKT.rect = function(x, y, width, height) {
 
-    var wkt = 'POLYGON((';
     var pts = [];
 
     // 0,0 origin by default.
@@ -193,15 +188,15 @@
     if (!_.isNumber(y)) y = 0;
 
     // No corner rounding.
-    pts.push(String(x)+' '+String(y));              // top left
-    pts.push(String(x+width)+' '+String(y));        // top right
-    pts.push(String(x+width)+' '+String(y+height)); // bottom right
-    pts.push(String(x)+' '+String(y+height));       // bottom left
-    pts.push(String(x)+' '+String(y));              // close
+    pts.push(String(x)+' '+String(-y));              // top left
+    pts.push(String(x+width)+' '+String(-y));        // top right
+    pts.push(String(x+width)+' '+String(-y-height)); // bottom right
+    pts.push(String(x)+' '+String(-y-height));       // bottom left
+    pts.push(String(x)+' '+String(-y));              // close
 
     // TODO|dev: Corner rounding.
 
-    return wkt + pts.join() + '))';
+    return 'POLYGON((' + pts.join() + '))';
 
   };
 
@@ -233,7 +228,7 @@
       var angle = (interval_angle * i) * (Math.PI / 180);
       var x = __round(cx + r * Math.cos(angle));
       var y = __round(cy + r * Math.sin(angle));
-      pts.push(String(x)+' '+String(y));
+      pts.push(String(x)+' '+String(-y));
     });
 
     // Close.
@@ -274,7 +269,7 @@
       var angle = (interval_angle * i) * (Math.PI / 180);
       var x = __round(cx + rx * Math.cos(angle));
       var y = __round(cy + ry * Math.sin(angle));
-      pts.push(String(x)+' '+String(y));
+      pts.push(String(x)+' '+String(-y));
     });
 
     // Close.
@@ -358,7 +353,7 @@
     // Interpolate points.
     _(count+1).times(function(i) {
       var point = path.getPointAtLength((length * i) / count);
-      pts.push(String(__round(point.x))+' '+String(__round(point.y)));
+      pts.push(String(__round(point.x))+' '+String(__round(-point.y)));
     });
 
     if (closed) pts.push(pts[0]);

@@ -16,28 +16,28 @@ describe('path', function() {
 
   it('should create a LINESTRING when path is open', function() {
     expect(SVGtoWKT.path('M0 0L0 1L1 1L1 2')).toEqual(
-      'LINESTRING(0 0,0 1,1 1,1 2)'
+      'LINESTRING(0 0,0 -1,1 -1,1 -2)'
     );
   });
 
 
   it('should create a POLYGON when path is closed with `z`', function() {
     expect(SVGtoWKT.path('M0 0L0 1L1 1L1 0z')).toEqual(
-      'POLYGON((0 0,0 1,1 1,1 0,0 0))'
+      'POLYGON((0 0,0 -1,1 -1,1 0,0 0))'
     );
   });
 
 
   it('should create a POLYGON when path is closed with `Z`', function() {
     expect(SVGtoWKT.path('M0 0L0 1L1 1L1 0Z')).toEqual(
-      'POLYGON((0 0,0 1,1 1,1 0,0 0))'
+      'POLYGON((0 0,0 -1,1 -1,1 0,0 0))'
     );
   });
 
 
   it('should create a POLYGON with holes when multiple `z`s', function() {
     expect(SVGtoWKT.path('M0 0L0 3L3 3L3 0ZM1 1L1 2L2 2L2 1Z')).toEqual(
-      'POLYGON((0 0,0 1,0 2,0 3,1 3,2 3,3 3,3 2,3 1,3 0,2 0,1 0,0 0),(1 1,1 2,2 2,2 1,1 1))'
+      'POLYGON((0 0,0 -1,0 -2,0 -3,1 -3,2 -3,3 -3,3 -2,3 -1,3 0,2 0,1 0,0 0),(1 -1,1 -2,2 -2,2 -1,1 -1))'
     );
   });
 

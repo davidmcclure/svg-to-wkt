@@ -17,7 +17,7 @@ describe('circle', function() {
   it('should create a circular POLYGON shape', function() {
     SVGtoWKT.PRECISION = 1;
     expect(SVGtoWKT.circle(0, 0, 1.2)).toEqual(
-      'POLYGON((1.2 0,0.8 0.8,0 1.2,-0.8 0.8,-1.2 0,-0.8 -0.8,0 -1.2,0.8 -0.8,1.2 0))'
+      'POLYGON((1.2 0,0.8 -0.8,0 -1.2,-0.8 -0.8,-1.2 0,-0.8 0.8,0 1.2,0.8 0.8,1.2 0))'
     );
   });
 

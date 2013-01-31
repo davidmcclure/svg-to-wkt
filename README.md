@@ -4,9 +4,9 @@ SVG-to-WKT converts [SVG](https://developer.mozilla.org/en-US/docs/SVG) (Scalabl
 
  - SVG-to-WKT supports all SVG elements that directly encode geometric data: ```<circle>```, ```<ellipse>```, ```<line>```, ```<path>```, ```<polygon>```, ```<polyline>```, and ```<rect>```. SVG styles are ignored, since WKT has no notion of presentation, only shape.
 
- - SVG paths are converted to frozen WKT polygons using the ```getPointAtLength``` method on ```<path>``` elements - curves are interpolated at a customizable density level and written as a series of fixed points.
+ - SVG paths are converted to frozen WKT polygons using the browser's ```getPointAtLength``` method on ```<path>``` elements. Curves are interpolated at a customizable density level and written as a series of fixed points.
 
- - All point coordinates are reflected "upwards" over the Y-axis so that geometries keep the same orientation when rendered against a spatial coordinate system.
+ - On maps, Y-axis values increase "upwards," to the north; in documents, which start counting at the top left corner, Y-axis values increase "downwards" towards the bottom of the screen. To correct for this, all point coordinates are reflected upwards over the Y-axis so that geometries keep the same orientation.
 
 ## Quick Example
 

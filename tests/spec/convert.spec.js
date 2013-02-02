@@ -14,6 +14,18 @@ describe('convert', function() {
   });
 
 
+  it('should throw an error for undefined empty XML', function() {
+    expect(function() { SVGtoWKT.convert(); }).toThrow();
+    expect(function() { SVGtoWKT.convert(''); }).toThrow();
+    expect(function() { SVGtoWKT.convert(' '); }).toThrow();
+  });
+
+
+  it('should throw an error for invalid XML', function() {
+    expect(function() { SVGtoWKT.convert('invalid'); }).toThrow();
+  });
+
+
   it('should parse a <polygon>', function() {
     expect(SVGtoWKT.convert(
       '<svg><polygon points="1,2 3,4 5,6" /></svg>'

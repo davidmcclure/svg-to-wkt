@@ -42,10 +42,12 @@
    */
   SVGtoWKT.convert = function(svg) {
 
-    var els = [];
+    if (_.isEmpty(svg.trim())) throw new Error('Empty XML.');
+    var els = [], xml;
 
     // Parse the raw XML.
-    var xml = $($.parseXML(svg));
+    try { xml = $($.parseXML(svg)); }
+    catch (e) { throw new Error('Invalid XMl.'); }
 
     // Match `<polygon>` elements.
     xml.find('polygon').each(function(i, polygon) {
@@ -101,8 +103,6 @@
       els.push(SVGtoWKT.path($(path).attr('d')));
     });
 
-    // Comma-delimit the individual WKT geometry strings and wrap them in
-    // a `GEOMETRYCOLLECTION`.
     return 'GEOMETRYCOLLECTION(' + els.join(',') + ')';
 
   };
@@ -134,9 +134,7 @@
    */
   SVGtoWKT.polyline = function(points) {
 
-    // Trim the `points` attribute value, replace commas with spaces and
-    // spaces with commas, and reflect Y-axis values upwards: `1,2 3,4 `
-    // => `1 -2,3 -4`
+    // "1,2 3,4 " => "1 2,3 4"
     var pts = _.map(points.trim().split(' '), function(pt) {
       pt = pt.split(','); pt[1] = -pt[1];
       return pt.join(' ');

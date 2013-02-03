@@ -42,12 +42,21 @@
    */
   SVGtoWKT.convert = function(svg) {
 
-    if (_.isEmpty(svg.trim())) throw new Error('Empty XML.');
-    var els = [], xml;
+    // Halt if svg is undefined or empty.
+    if (_.isUndefined(svg) || _.isEmpty(svg.trim())) {
+      throw new Error('Empty XML.');
+    }
 
-    // Parse the raw XML.
-    try { xml = $($.parseXML(svg)); }
-    catch (e) { throw new Error('Invalid XMl.'); }
+    var els = [];
+    var xml;
+
+    try {
+      // Parse the raw XML.
+      xml = $($.parseXML(svg));
+    } catch (e) {
+      // Halt if malformed.
+      throw new Error('Invalid XMl.');
+    }
 
     // Match `<polygon>` elements.
     xml.find('polygon').each(function(i, polygon) {

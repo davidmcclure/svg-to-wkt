@@ -14,8 +14,12 @@ describe('convert', function() {
   });
 
 
-  it('should throw an error for undefined empty XML', function() {
+  it('should throw an error for undefined XML', function() {
     expect(function() { SVGtoWKT.convert(); }).toThrow();
+  });
+
+
+  it('should throw an error for empty XML', function() {
     expect(function() { SVGtoWKT.convert(''); }).toThrow();
     expect(function() { SVGtoWKT.convert(' '); }).toThrow();
   });

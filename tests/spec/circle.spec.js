@@ -1,10 +1,13 @@
 
 /* vim: set expandtab tabstop=2 shiftwidth=2 softtabstop=2 cc=76; */
 
-// SVG-to-WKT 0.0.1
-// (c) 2013 David McClure
-// http://dclure.org
-
+/**
+ * Tests for `circle`.
+ *
+ * @package     svg-to-wkt
+ * @copyright   2012 David McClure
+ * @license     http://www.apache.org/licenses/LICENSE-2.0.html
+ */
 
 describe('circle', function() {
 

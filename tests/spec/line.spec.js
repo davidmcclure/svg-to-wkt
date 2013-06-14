@@ -13,7 +13,7 @@ describe('line', function() {
 
 
   beforeEach(function() {
-    _t.reset();
+    T.reset();
   });
 
 

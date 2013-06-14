@@ -13,7 +13,7 @@ describe('polygon', function() {
 
 
   beforeEach(function() {
-    _t.reset();
+    T.reset();
   });
 
 

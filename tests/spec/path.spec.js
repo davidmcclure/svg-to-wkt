@@ -13,7 +13,7 @@ describe('path', function() {
 
 
   beforeEach(function() {
-    _t.reset();
+    T.reset();
   });
 
 
@@ -50,9 +50,9 @@ describe('path', function() {
 
   it('should react to different density settings', function() {
     SVGtoWKT.DENSITY = 1;
-    var c1 = _t.countPoints(SVGtoWKT.path('M0 0L0 1'));
+    var c1 = T.countPoints(SVGtoWKT.path('M0 0L0 1'));
     SVGtoWKT.DENSITY = 2;
-    var c2 = _t.countPoints(SVGtoWKT.path('M0 0L0 1'));
+    var c2 = T.countPoints(SVGtoWKT.path('M0 0L0 1'));
     expect(c2).toBeGreaterThan(c1);
   });
 

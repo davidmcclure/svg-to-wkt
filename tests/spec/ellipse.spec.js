@@ -13,7 +13,7 @@ describe('ellipse', function() {
 
 
   beforeEach(function() {
-    _t.reset();
+    T.reset();
   });
 
 
@@ -37,9 +37,9 @@ describe('ellipse', function() {
 
   it('should react to different density settings', function() {
     SVGtoWKT.DENSITY = 1;
-    var c1 = _t.countPoints(SVGtoWKT.ellipse(0, 0, 1, 1.6));
+    var c1 = T.countPoints(SVGtoWKT.ellipse(0, 0, 1, 1.6));
     SVGtoWKT.DENSITY = 2;
-    var c2 = _t.countPoints(SVGtoWKT.ellipse(0, 0, 1, 1.6));
+    var c2 = T.countPoints(SVGtoWKT.ellipse(0, 0, 1, 1.6));
     expect(c2).toBeGreaterThan(c1);
   });
 

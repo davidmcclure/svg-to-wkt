@@ -13,7 +13,7 @@ describe('polyline', function() {
 
 
   beforeEach(function() {
-    _t.reset();
+    T.reset();
   });
 
 

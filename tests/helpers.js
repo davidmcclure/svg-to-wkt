@@ -9,14 +9,13 @@
  * @license     http://www.apache.org/licenses/LICENSE-2.0.html
  */
 
-_t = (function() {
-  var _t = {};
+var T = (function(T) {
 
 
   /**
    * Reset constants.
    */
-  _t.reset = function() {
+  T.reset = function() {
     SVGtoWKT.PRECISION = 3;
     SVGtoWKT.DENSITY = 1;
   };
@@ -28,10 +27,12 @@ _t = (function() {
    * @param {String} wkt: The WKT string.
    * @return {Number}: The point count.
    */
-  _t.countPoints = function(wkt) {
+  T.countPoints = function(wkt) {
     return wkt.match(/\(([\s\S]+)\)/)[1].split(',').length;
   };
 
 
-  return _t;
-})();
+  return T;
+
+
+})(T || {});

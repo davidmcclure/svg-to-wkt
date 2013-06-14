@@ -13,7 +13,7 @@ describe('circle', function() {
 
 
   beforeEach(function() {
-    _t.reset();
+    T.reset();
   });
 
 
@@ -37,9 +37,9 @@ describe('circle', function() {
 
   it('should react to different density settings', function() {
     SVGtoWKT.DENSITY = 1;
-    var c1 = _t.countPoints(SVGtoWKT.circle(0, 0, 1.2, 1));
+    var c1 = T.countPoints(SVGtoWKT.circle(0, 0, 1.2, 1));
     SVGtoWKT.DENSITY = 2;
-    var c2 = _t.countPoints(SVGtoWKT.circle(0, 0, 1.2, 1));
+    var c2 = T.countPoints(SVGtoWKT.circle(0, 0, 1.2, 1));
     expect(c2).toBeGreaterThan(c1);
   });
 

@@ -13,7 +13,7 @@ describe('rect', function() {
 
 
   beforeEach(function() {
-    _t.reset();
+    T.reset();
   });
 
 

@@ -53,6 +53,9 @@
     var els = [];
     var xml;
 
+    // Strip out tabs and linebreaks.
+    svg = svg.replace(/\r\n|\r|\n|\t/g, '');
+
     try {
       // Parse the raw XML.
       xml = $($.parseXML(svg));

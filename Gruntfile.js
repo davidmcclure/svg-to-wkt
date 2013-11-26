@@ -21,8 +21,8 @@ module.exports = function(grunt) {
         options: {
           specs: 'tests/spec/*.spec.js',
           helpers: [
-            'components/jquery/jquery.js',
-            'components/underscore/underscore.js',
+            'bower_components/jquery/jquery.js',
+            'bower_components/underscore/underscore.js',
             'tests/helpers.js'
           ]
         }

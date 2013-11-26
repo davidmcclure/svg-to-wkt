@@ -29,7 +29,7 @@ describe('convert', function() {
 
 
   it('should throw an error for invalid XML', function() {
-    expect(function() { SVGtoWKT.convert('invalid'); }).toThrow();
+    expect(function() { SVGtoWKT.convert('<invalid>'); }).toThrow();
   });
 
 

@@ -61,7 +61,7 @@
       xml = $($.parseXML(svg));
     } catch (e) {
       // Halt if malformed.
-      throw new Error('Invalid XMl.');
+      throw new Error('Invalid XML.');
     }
 
     // Match `<polygon>` elements.

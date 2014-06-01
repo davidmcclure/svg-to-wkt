@@ -4,6 +4,7 @@
   "dependencies": {
     "jquery": "~2.1.1",
     "underscore": "~1.6.0",
-    "jasmine-jquery": "~2.0.3"
+    "jasmine-jquery": "~2.0.3",
+    "lodash": "~2.4.1"
   }
 }

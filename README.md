@@ -17,12 +17,12 @@ SVGtoWKT.convert('<svg><polygon points="1,2 3,4 5,6" /><line x1="7" y1="8" x2="9
 
 ## In the Browser
 
-SVG-to-WKT uses jQuery (for XML parsing) and Underscore (for sanity).
+SVG-to-WKT uses [jQuery](http://jquery.com/) (for XML parsing) and [lodash](http://lodash.com/) (for sanity).
 
 ```html
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="underscore.js"></script>
-<script type="text/javascript" src="svg-to-wkt.js"></script>
+<script type="text/javascript" src="path/to/jquery.js"></script>
+<script type="text/javascript" src="path/to/lodash.js"></script>
+<script type="text/javascript" src="path/to/svg-to-wkt.js"></script>
 ```
 
 ## Documentation
@@ -290,6 +290,4 @@ SVGtoWKT.circle(0, 0, 1);
 
 ## Credits
 
-The ```path``` method follows the approach described by Guilherme Mussi on his blog: "[Converting SVG paths to polygons](http://whaticode.com/2012/02/01/converting-svg-paths-to-polygons)."
-
-This document follows the layout used by Caolan McMahon ([caolan](https://github.com/caolan)) in projects like [async](https://github.com/caolan/async).
+The ```path``` method follows the approach described by Guilherme Mussi on his blog: "[Converting SVG paths to polygons](http://whaticode.com/2012/02/01/converting-svg-paths-to-polygons)." This document follows the layout used by Caolan McMahon ([caolan](https://github.com/caolan)) in projects like [async](https://github.com/caolan/async).

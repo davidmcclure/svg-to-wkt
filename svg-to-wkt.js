@@ -7,6 +7,11 @@
  * @license     http://www.apache.org/licenses/LICENSE-2.0.html
  */
 
+
+var $ = require('jquery');
+var _ = require('lodash');
+
+
 (function() {
 
 
@@ -390,7 +395,15 @@
   };
 
 
-  this.SVGtoWKT = SVGtoWKT;
+  // Node.js:
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = SVGtoWKT;
+  }
+
+  // Browser:
+  else {
+    this.SVGtoWKT = SVGtoWKT;
+  }
 
 
 }.call(this));

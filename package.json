@@ -11,7 +11,7 @@
     "mocha": "^1.20.0"
   },
   "dependencies": {
-    "jquery": "^2.1.1",
-    "lodash": "^2.4.1"
+    "lodash": "^2.4.1",
+    "xml2js": "^0.4.4"
   }
 }

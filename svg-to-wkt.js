@@ -8,7 +8,7 @@
  */
 
 
-var $ = require('jquery');
+var xml2js = require('xml2js');
 var _ = require('lodash');
 
 
@@ -42,86 +42,99 @@ var _ = require('lodash');
    * SVG => WKT.
    *
    * @param {String} svg: SVG markup.
+   * @param {Function} cb: A callback.
    * @return {String}: Generated WKT.
    *
    * @public
    */
-  SVGtoWKT.convert = function(svg) {
+  SVGtoWKT.convert = function(svg, cb) {
 
     // Halt if svg is undefined or empty.
     if (_.isUndefined(svg) || _.isEmpty(svg.trim())) {
       throw new Error('Empty XML.');
     }
 
-    var els = [];
-    var xml;
-
     // Strip out tabs and linebreaks.
     svg = svg.replace(/\r\n|\r|\n|\t/g, '');
 
-    try {
-      // Parse the raw XML.
-      xml = $($.parseXML(svg));
-    } catch (e) {
-      // Halt if malformed.
-      throw new Error('Invalid XML.');
-    }
+    // Parse the XML.
+    xml2js.parseString(svg, function(err, result) {
 
-    // Match `<polygon>` elements.
-    xml.find('polygon').each(function(i, polygon) {
-      els.push(SVGtoWKT.polygon($(polygon).attr('points')));
+      if (err) cb(err);
+
+      var els = [];
+      _.each(result.svg, function(element, type) {
+
+        var attrs = element[0].$;
+
+        switch (type) {
+
+          // Match `<polygon>` elements.
+          case 'polygon':
+            els.push(SVGtoWKT.polygon(
+              attrs.points
+            ));
+            break;
+
+          // Match `<polyline>` elements.
+          case 'polyline':
+            els.push(SVGtoWKT.polyline(
+              attrs.points
+            ));
+            break;
+
+          // Match `<line>` elements.
+          case 'line':
+            els.push(SVGtoWKT.line(
+              attrs.x1,
+              attrs.y1,
+              attrs.x2,
+              attrs.y2
+            ));
+            break;
+
+          // Match `<rect>` elements.
+          case 'rect':
+            els.push(SVGtoWKT.rect(
+              attrs.x,
+              attrs.y,
+              attrs.width,
+              attrs.height
+            ));
+            break;
+
+          // Match `<circle>` elements.
+          case 'circle':
+            els.push(SVGtoWKT.circle(
+              attrs.cx,
+              attrs.cy,
+              attrs.r
+            ));
+            break;
+
+          // Match `<ellipse>` elements.
+          case 'ellipse':
+            els.push(SVGtoWKT.ellipse(
+              attrs.cx,
+              attrs.cy,
+              attrs.rx,
+              attrs.ry
+            ));
+            break;
+
+          // Match `<path>` elements.
+          case 'path':
+            els.push(SVGtoWKT.path(element.$.d));
+            break;
+
+        }
+
+        // Wrap into a single `GEOMETRYCOLLECTION`.
+        cb(null, 'GEOMETRYCOLLECTION(' + els.join(',') + ')');
+
+      });
+
     });
-
-    // Match `<polyline>` elements.
-    xml.find('polyline').each(function(i, polyline) {
-      els.push(SVGtoWKT.polyline($(polyline).attr('points')));
-    });
-
-    // Match `<line>` elements.
-    xml.find('line').each(function(i, line) {
-      els.push(SVGtoWKT.line(
-        parseFloat($(line).attr('x1')),
-        parseFloat($(line).attr('y1')),
-        parseFloat($(line).attr('x2')),
-        parseFloat($(line).attr('y2'))
-      ));
-    });
-
-    // Match `<rect>` elements.
-    xml.find('rect').each(function(i, rect) {
-      els.push(SVGtoWKT.rect(
-        parseFloat($(rect).attr('x')),
-        parseFloat($(rect).attr('y')),
-        parseFloat($(rect).attr('width')),
-        parseFloat($(rect).attr('height'))
-      ));
-    });
-
-    // Match `<circle>` elements.
-    xml.find('circle').each(function(i, circle) {
-      els.push(SVGtoWKT.circle(
-        parseFloat($(circle).attr('cx')),
-        parseFloat($(circle).attr('cy')),
-        parseFloat($(circle).attr('r'))
-      ));
-    });
-
-    // Match `<ellipse>` elements.
-    xml.find('ellipse').each(function(i, circle) {
-      els.push(SVGtoWKT.ellipse(
-        parseFloat($(circle).attr('cx')),
-        parseFloat($(circle).attr('cy')),
-        parseFloat($(circle).attr('rx')),
-        parseFloat($(circle).attr('ry'))
-      ));
-    });
-
-    // Match `<path>` elements.
-    xml.find('path').each(function(i, path) {
-      els.push(SVGtoWKT.path($(path).attr('d')));
-    });
-
-    return 'GEOMETRYCOLLECTION(' + els.join(',') + ')';
 
   };
 

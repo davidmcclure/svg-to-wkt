@@ -393,4 +393,4 @@
   this.SVGtoWKT = SVGtoWKT;
 
 
-})();
+}.call(this));

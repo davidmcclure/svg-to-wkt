@@ -8,7 +8,9 @@
 module.exports = {
 
   tests: {
+
     src: 'svg-to-wkt.js',
+
     options: {
       specs: 'tests/spec/*.spec.js',
       helpers: [
@@ -17,6 +19,7 @@ module.exports = {
         'tests/helpers.js'
       ]
     }
+
   }
 
 };

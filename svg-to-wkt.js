@@ -208,7 +208,7 @@
     pts.push(String(x)+' '+String(-y-height));       // bottom left
     pts.push(String(x)+' '+String(-y));              // close
 
-    // TODO|dev: Corner rounding.
+    // TODO: Corner rounding.
 
     return 'POLYGON((' + pts.join() + '))';
 

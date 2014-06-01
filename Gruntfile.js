@@ -6,27 +6,5 @@
  */
 
 module.exports = function(grunt) {
-
-  grunt.loadNpmTasks('grunt-contrib-jasmine');
-
-  grunt.initConfig({
-
-    jasmine: {
-      svg_to_wkt: {
-        src: 'svg-to-wkt.js',
-        options: {
-          specs: 'tests/spec/*.spec.js',
-          helpers: [
-            'bower_components/jquery/jquery.js',
-            'bower_components/underscore/underscore.js',
-            'tests/helpers.js'
-          ]
-        }
-      }
-    }
-
-  });
-
-  grunt.registerTask('default', 'jasmine');
-
+  require('load-grunt-config')(grunt);
 };

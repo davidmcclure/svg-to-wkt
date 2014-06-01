@@ -12,17 +12,17 @@ var SVGtoWKT = require('../svg-to-wkt');
 var expect = require('chai').expect;
 
 
-describe('SVGtoWKT.polygon()', function() {
+describe('SVGtoWKT.polyline()', function() {
 
-  it('should create a closed POLYGON shape', function() {
-    expect(SVGtoWKT.polygon('1,2 3,4 5,6')).to.equal(
-      'POLYGON((1 -2,3 -4,5 -6,1 -2))'
+  it('should create a LINESTRING shape', function() {
+    expect(SVGtoWKT.polyline('1,2 3,4 5,6')).to.equal(
+      'LINESTRING(1 -2,3 -4,5 -6)'
     );
   });
 
   it('should trim empty whitespace on `points` string', function() {
-    expect(SVGtoWKT.polygon(' 1,2 3,4 5,6 ')).to.equal(
-      'POLYGON((1 -2,3 -4,5 -6,1 -2))'
+    expect(SVGtoWKT.polyline(' 1,2 3,4 5,6 ')).to.equal(
+      'LINESTRING(1 -2,3 -4,5 -6)'
     );
   });
 

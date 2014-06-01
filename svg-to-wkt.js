@@ -1,6 +1,6 @@
 
 /**
- * SVG-to-WKT.
+ * SVG-to-WKT.js
  *
  * @package     svg-to-wkt
  * @copyright   2012 David McClure

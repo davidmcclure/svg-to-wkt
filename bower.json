@@ -2,11 +2,11 @@
   "name": "svg-to-wkt",
   "version": "0.1.0",
   "description": "Convert SVG to WKT for use on maps.",
-  "homepage": "https://github.com/davidmcclure/svg-to-wkt"
+  "homepage": "https://github.com/davidmcclure/svg-to-wkt",
   "main": "svg-to-wkt.js",
   "author": {
     "name": "David McClure",
-    "email": "davidwilliammcclure@gmail.com",
+    "email": "davidwilliammcclure@gmail.com"
   },
   "keywords": [
     "svg",

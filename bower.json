@@ -1,6 +1,6 @@
 {
   "name": "svg-to-wkt",
-  "version": "0.1.4",
+  "version": "0.1.1",
   "description": "Convert SVG to WKT for use on maps.",
   "homepage": "https://github.com/davidmcclure/svg-to-wkt",
   "main": "svg-to-wkt.js",
@@ -26,7 +26,8 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "test",
-    "grunt"
+    "Gruntfile.js",
+    "grunt",
+    "test"
   ]
 }

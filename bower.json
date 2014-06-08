@@ -21,5 +21,12 @@
   },
   "devDependencies": {
     "jasmine-jquery": "~2.0.3"
-  }
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "grunt"
+  ]
 }

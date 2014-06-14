@@ -1,11 +1,12 @@
 {
   "name": "svg-to-wkt",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-jasmine": "^0.6.5",
-    "grunt-release": "^0.7.0",
+    "grunt-git": "^0.2.11",
+    "grunt-version": "^0.3.0",
     "load-grunt-config": "^0.9.2"
   }
 }

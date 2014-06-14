@@ -6,5 +6,15 @@
  */
 
 module.exports = function(grunt) {
-  require('load-grunt-config')(grunt);
+
+  // Read `package.json`:
+  var pkg = grunt.file.readJSON('package.json');
+
+  // Load the task configurations.
+  require('load-grunt-config')(grunt, {
+    data: {
+      pkg: pkg
+    }
+  });
+
 };

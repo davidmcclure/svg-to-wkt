@@ -316,7 +316,7 @@
 
       var parts = [];
       _.each(polys, function(poly) {
-        parts.push('(' + __pathPoints(poly).join() + ')');
+        parts.push('(' + __pathPoints(poly, true).join() + ')');
       });
 
       return 'POLYGON(' + parts.join() + ')';
